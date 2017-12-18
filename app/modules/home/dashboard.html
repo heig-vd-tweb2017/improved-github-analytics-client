@@ -1,0 +1,30 @@
+<div class="md-padding" flex layout-sm="column">
+    <md-card class="text-left">
+        <md-card-content>
+            <br>
+            Choice box ici
+            <br>
+            <div ng-controller="HomeCtrl as vm">
+                <label>
+                Repo GitHub :
+                    <input size="45" type="text" name="repo" ng-model="vm.repoGithub.repo" required>
+                </label>
+                <br><br>
+                Période : 
+                <select>
+                    <option ng-repeat="x in vm.repoGithub.dates">{{x}}</option>
+                </select>
+                <br><br>
+                Regroupement :
+                <select>
+                    <option ng-repeat="x in vm.repoGithub.groupments">{{x}}</option>
+                </select>
+                <br>   
+            </div>
+ 
+            <md-divider class="margin-top-20"></md-divider>
+            <h1 class="margin-top-50">Graphics</h1>
+            Contenu 
+        </md-card-content>
+    </md-card>
+</div>
