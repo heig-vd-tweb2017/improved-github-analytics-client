@@ -30,16 +30,11 @@
 		];
 
 		return {
-			getFeaturesList: getFeaturesList,
-			get:get
+			getFeaturesList: getFeaturesList
 		};
 
 		function getFeaturesList() {
 			return list;
-		}
-
-		function get(){
-			return ' lala';
 		}
 
 	}

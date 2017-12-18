@@ -14,7 +14,6 @@
 		.controller('HomeCtrl', Home);
 
 	Home.$inject = ['homeService'];
-
 	
 	/*
 	* recommend
@@ -27,9 +26,13 @@
 		var vm = this;		
 
 		vm.repoGithub = {
-			repo : 'https://github.com/<organisation>/<repo>',
+			repo : 'https://github.com/<owner>/<repo>',
 			dates :  ['1 an', '6 mois', '3 mois','1 mois','2 semaines','1 semaine'],
 			groupments :  ['1 an', '6 mois', '3 mois','1 mois','2 semaines','1 semaine'],
+		}
+
+		vm.apply = function(){
+			console.log("click");
 		}
 	}	
 })();

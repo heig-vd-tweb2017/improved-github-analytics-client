@@ -11,7 +11,6 @@
 angular.module('ang-modular')
 	.config(['$stateProvider', function ($stateProvider) {
 		$stateProvider
-			
 			.state('home', {
 				url: '',
 				abstract: true,
