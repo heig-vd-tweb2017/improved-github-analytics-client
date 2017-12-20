@@ -2,23 +2,25 @@
     <md-card class="text-left">
         <md-card-content>
             <h1>Sélectionnez les options</h1>
-                <label>
-                Repo GitHub<br>
-                    <input size="70%" type="url" name="repo" ng-model="vm.repoGithub.repo" ng-required="true">
-                </label>
-                <br><br>
-                Période<br>
-                <select>
-                    <option ng-repeat="x in vm.repoGithub.dates">{{x}}</option>
-                </select>
-                <br><br>
-                Regroupement<br>
-                <select>
-                    <option ng-repeat="x in vm.repoGithub.groupments">{{x}}</option>
-                </select>
-                <br><br>
-                <button ng-click="vm.apply()">Search</button>
-            </form>
+            <label>Repo GitHub</label><br>
+            <input size="70%" type="url" name="repo" ng-model="vm.repoGitHub.repo" ng-required="true">
+            <br><br>
+                
+            <label>Période</label><br>
+            <select name="period" id="period"
+                ng-options="option.name for option in vm.period.availableOptions track by option.id"
+                ng-model="vm.period.selectedOption">                
+            </select>
+            <br><br>
+
+            <label>Regroupement</label><br>
+            <select name="groupment" id="groupment"
+                ng-options="option.name for option in vm.groupment.availableOptions track by option.id"
+                ng-model="vm.groupment.selectedOption">
+            </select>
+            <br><br>
+
+            <button ng-click="vm.apply(vm.repoGithub.repo,vm.repoGithub.dates,vm.repoGithub.groupments)">Search</button>
 
             <md-divider class="margin-top-20"></md-divider>
             <h2>Graphics</h2>

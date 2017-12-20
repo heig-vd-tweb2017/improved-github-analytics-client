@@ -28,14 +28,37 @@
 		vm.version = "1.0.0";
 		vm.listFeatures = homeService.getFeaturesList();
 
-		vm.repoGithub = {
+		vm.repoGitHub = {
 			repo : 'https://github.com/<owner>/<repo>',
-			dates :  ['1 an', '6 mois', '3 mois','1 mois','2 semaines','1 semaine'],
-			groupments :  ['1 an', '6 mois', '3 mois','1 mois','2 semaines','1 semaine'],
 		}
 
-		vm.apply = function(){
-			console.log("click");
+		vm.period = {
+			availableOptions :[
+				{id: '0', name: '> 1 an'},
+				{id: '1', name: '1 an'},
+				{id: '2', name: '6 mois'},
+				{id: '3', name: '3 mois'},
+				{id: '4', name: '1 mois'},
+				{id: '5', name: '1 semaine'},
+				{id: '6', name: '1 jour'},
+			],
+			selectedOption : {id: '0', name: '> 1 an'}, // default option
+		}
+
+		vm.groupment = {
+			availableOptions :[
+				{id: '1', name: '1 an'},
+				{id: '2', name: '6 mois'},
+				{id: '3', name: '3 mois'},
+				{id: '4', name: '1 mois'},
+				{id: '5', name: '2 semaines'},
+				{id: '6', name: '1 semaine'},
+			],
+			selectedOption : {id: '1', name: '1 an'}, // default option
+		}
+
+		vm.apply = function(repo,periode,groupement){
+			console.log("click"+ repo + " "+ periode + " "+ groupement);
 		}	
 
 		vm.lineChartOppened = {
