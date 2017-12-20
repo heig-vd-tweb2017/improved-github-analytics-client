@@ -1,0 +1,28 @@
+<div class="md-padding" flex layout-sm="column">
+    <md-card class="text-left">
+        <md-card-content>
+            <h1>{{ vm.title }}</h1>
+            <h3>{{ vm.version }}</h3>
+
+            <form  name="myForm" ng-controller="HomeCtrl as vm">
+                <label>
+                Repo GitHub<br>
+                    <input size="100" type="url" name="repo" ng-model="vm.repoGithub.repo" ng-required="true">
+                </label>
+                <br><br>
+                Période<br>
+                <select>
+                    <option ng-repeat="x in vm.repoGithub.dates">{{x}}</option>
+                </select>
+                <br><br>
+                Regroupement<br>
+                <select>
+                    <option ng-repeat="x in vm.repoGithub.groupments">{{x}}</option>
+                </select>
+                <br><br>
+                <button ng-click="vm.apply()">Search</button>
+            </form>
+            
+        </md-card-content>
+    </md-card>
+</div>
