@@ -1,13 +1,10 @@
 <div class="md-padding" flex layout-sm="column">
     <md-card class="text-left">
         <md-card-content>
-            <h1>{{ vm.title }}</h1>
-            <h3>{{ vm.version }}</h3>
-
-            <form  name="myForm" ng-controller="HomeCtrl as vm">
+            <h1>Sélectionnez les options</h1>
                 <label>
                 Repo GitHub<br>
-                    <input size="100" type="url" name="repo" ng-model="vm.repoGithub.repo" ng-required="true">
+                    <input size="70%" type="url" name="repo" ng-model="vm.repoGithub.repo" ng-required="true">
                 </label>
                 <br><br>
                 Période<br>
@@ -22,7 +19,57 @@
                 <br><br>
                 <button ng-click="vm.apply()">Search</button>
             </form>
-            
+
+            <md-divider class="margin-top-20"></md-divider>
+            <h2>Graphics</h2>
+            <!-- Graphiques lineChart-->
+            <div layout="row" layout-xs="column">
+                <div flex>
+                    <div layout="column" class="text-center">
+                        Openned Issues
+                        <canvas id="line" class="chart chart-line" chart-data="vm.dataLineChart" chart-labels="vm.labelsLineChart" chart-series="vm.seriesLineChart" chart-options="vm.optionsLineChart" chart-dataset-override="vm.datasetOverride"  chart-click="vm.onClick" chart-colors="vm.colorsLineChart">
+                        </canvas>
+                    </div>
+                </div>
+                <div flex>
+                    <div layout="column" class="text-center">
+                        Closed Issues
+                        <canvas id="line2" class="chart chart-line" chart-data="vm.dataLineChart" chart-labels="vm.labelsLineChart" chart-series="vm.seriesLineChart" chart-options="vm.optionsLineChart" chart-dataset-override="vm.datasetOverrideLineChart" chart-click="vm.onClick">
+                        </canvas>
+                    </div>
+                </div>
+                <div flex>
+                    <div layout="column" class="text-center">
+                        hmm?
+                        <canvas id="line3" class="chart chart-line" chart-data="vm.dataLineChart" chart-labels="vm.labelsLineChart" chart-series="vm.seriesLineChart" chart-options="vm.optionsLineChart" chart-dataset-override="vm.datasetOverrideLineChart"  chart-click="vm.onClick">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+            <!-- Graphiques barChart-->
+            <div layout="row" layout-xs="column">
+                    <div flex>
+                        <div layout="column" class="text-center">
+                            Openned Issues
+                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChart" chart-labels="vm.labelsBarChart" chart-series="vm.seriesBarChart" chart-options="vm.optionsBarChart">
+                            </canvas>
+                        </div>
+                    </div>
+                    <div flex>
+                        <div layout="column" class="text-center">
+                            Closed Issues
+                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChart" chart-labels="vm.labelsBarChart" chart-series="vm.seriesBarChart" chart-options="vm.optionsBarChart">
+                            </canvas>
+                        </div>
+                    </div>
+                    <div flex>
+                        <div layout="column" class="text-center">
+                            hmm?
+                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChart" chart-labels="vm.labelsBarChart" chart-series="vm.seriesBarChart" chart-options="vm.optionsBarChart">
+                            </canvas>
+                        </div>
+                    </div>
+                </div>
         </md-card-content>
     </md-card>
 </div>
