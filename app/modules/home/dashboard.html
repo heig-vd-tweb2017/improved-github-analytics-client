@@ -3,24 +3,24 @@
         <md-card-content>
             <h1>Sélectionnez les options</h1>
             <label>Repo GitHub</label><br>
-            <input size="70%" type="url" name="repo" ng-model="vm.repoGitHub.repo" ng-required="true">
+            <input size="70%" type="url" name="repo" ng-model="vm.form.repoGitHub.selectedRepo" ng-required="true">
             <br><br>
                 
             <label>Période</label><br>
             <select name="period" id="period"
-                ng-options="option.name for option in vm.period.availableOptions track by option.id"
-                ng-model="vm.period.selectedOption">                
+                ng-options="option.name for option in vm.form.period.availableOptions track by option.id"
+                ng-model="vm.form.period.selectedOption">                
             </select>
             <br><br>
 
             <label>Regroupement</label><br>
             <select name="groupment" id="groupment"
-                ng-options="option.name for option in vm.groupment.availableOptions track by option.id"
-                ng-model="vm.groupment.selectedOption">
+                ng-options="option.name for option in vm.form.groupment.availableOptions track by option.id"
+                ng-model="vm.form.groupment.selectedOption">
             </select>
             <br><br>
 
-            <button ng-click="vm.apply(vm.repoGithub.repo,vm.repoGithub.dates,vm.repoGithub.groupments)">Search</button>
+            <button ng-click="vm.form.apply()">Search</button>
 
             <md-divider class="margin-top-20"></md-divider>
             <h2>Graphics</h2>
@@ -29,21 +29,21 @@
                 <div flex>
                     <div layout="column" class="text-center">
                         Openned Issues
-                        <canvas id="line" class="chart chart-line" chart-data="vm.dataLineChart" chart-labels="vm.labelsLineChart" chart-series="vm.seriesLineChart" chart-options="vm.optionsLineChart" chart-dataset-override="vm.datasetOverride"  chart-click="vm.onClick" chart-colors="vm.colorsLineChart">
+                        <canvas id="line" class="chart chart-line" chart-data="vm.dataLineChartOI" chart-labels="vm.lineChart.labels" chart-series="vm.lineChart.series" chart-options="vm.lineChart.options" chart-dataset-override="vm.lineChart.datasetOverride"  chart-click="vm.lineChart.onClick" chart-colors="vm.lineChart.colors">
                         </canvas>
                     </div>
                 </div>
                 <div flex>
                     <div layout="column" class="text-center">
                         Closed Issues
-                        <canvas id="line2" class="chart chart-line" chart-data="vm.dataLineChart" chart-labels="vm.labelsLineChart" chart-series="vm.seriesLineChart" chart-options="vm.optionsLineChart" chart-dataset-override="vm.datasetOverrideLineChart" chart-click="vm.onClick">
+                        <canvas id="line2"class="chart chart-line" chart-data="vm.dataLineChartCI" chart-labels="vm.lineChart.labels" chart-series="vm.lineChart.series" chart-options="vm.lineChart.options" chart-dataset-override="vm.lineChart.datasetOverride"  chart-click="vm.lineChart.onClick" chart-colors="vm.lineChart.colors">
                         </canvas>
                     </div>
                 </div>
                 <div flex>
                     <div layout="column" class="text-center">
                         hmm?
-                        <canvas id="line3" class="chart chart-line" chart-data="vm.dataLineChart" chart-labels="vm.labelsLineChart" chart-series="vm.seriesLineChart" chart-options="vm.optionsLineChart" chart-dataset-override="vm.datasetOverrideLineChart"  chart-click="vm.onClick">
+                        <canvas id="line3" class="chart chart-line" chart-data="vm.dataLineChartI" chart-labels="vm.lineChart.labels" chart-series="vm.lineChart.series" chart-options="vm.lineChart.options" chart-dataset-override="vm.lineChart.datasetOverride"  chart-click="vm.lineChart.onClick" chart-colors="vm.lineChart.colors">
                         </canvas>
                     </div>
                 </div>
@@ -53,21 +53,21 @@
                     <div flex>
                         <div layout="column" class="text-center">
                             Openned Issues
-                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChart" chart-labels="vm.labelsBarChart" chart-series="vm.seriesBarChart" chart-options="vm.optionsBarChart">
+                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChartOI" chart-series="vm.seriesBarChartOI" chart-labels="vm.BarChart.labels" chart-options="vm.BarChart.options">
                             </canvas>
                         </div>
                     </div>
                     <div flex>
                         <div layout="column" class="text-center">
                             Closed Issues
-                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChart" chart-labels="vm.labelsBarChart" chart-series="vm.seriesBarChart" chart-options="vm.optionsBarChart">
+                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChartCI" chart-series="vm.seriesBarChartCI" chart-labels="vm.BarChart.labels" chart-options="vm.BarChart.options">
                             </canvas>
                         </div>
                     </div>
                     <div flex>
                         <div layout="column" class="text-center">
                             hmm?
-                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChart" chart-labels="vm.labelsBarChart" chart-series="vm.seriesBarChart" chart-options="vm.optionsBarChart">
+                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChartI" chart-series="vm.seriesBarChartI" chart-labels="vm.BarChart.labels" chart-options="vm.BarChart.options">
                             </canvas>
                         </div>
                     </div>
