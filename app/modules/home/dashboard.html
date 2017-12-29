@@ -1,26 +1,34 @@
 <div class="md-padding" flex layout-sm="column">
     <md-card class="text-left">
         <md-card-content>
-            <h1>Sélectionnez les options</h1>
-            <label>Repo GitHub</label><br>
-            <input size="70%" type="url" name="repo" ng-model="vm.form.repoGitHub.selectedRepo" ng-required="true">
-            <br><br>
-                
-            <label>Période</label><br>
-            <select name="period" id="period"
-                ng-options="option.name for option in vm.form.period.availableOptions track by option.id"
-                ng-model="vm.form.period.selectedOption">                
-            </select>
-            <br><br>
+            <form name="myForm">
+                <h1>Sélectionnez les options</h1>
+                <label>Repo GitHub</label><br>
+                <input size="70%" type="url" name="repo" ng-model="vm.form.repoGitHub.selectedRepo" ng-required="true">
+                <span class="error" ng-show="myForm.repo.$error.required">
+                    url required !
+                </span>
+                <span class="error" ng-show="myForm.repo.$error.url">
+                    Not valid url !
+                </span>
+                <br><br>
+                    
+                <label>Période</label><br>
+                <select name="period" id="period"
+                    ng-options="option.name for option in vm.form.period.availableOptions track by option.id"
+                    ng-model="vm.form.period.selectedOption">                
+                </select>
+                <br><br>
 
-            <label>Regroupement</label><br>
-            <select name="groupment" id="groupment"
-                ng-options="option.name for option in vm.form.groupment.availableOptions track by option.id"
-                ng-model="vm.form.groupment.selectedOption">
-            </select>
-            <br><br>
+                <label>Regroupement</label><br>
+                <select name="groupment" id="groupment"
+                    ng-options="option.name for option in vm.form.groupment.availableOptions track by option.id"
+                    ng-model="vm.form.groupment.selectedOption">
+                </select>
+                <br><br>
 
-            <button ng-click="vm.form.apply()">Search</button>
+                <button ng-click="vm.form.apply()">Search</button>
+            </form>
 
             <md-divider class="margin-top-20"></md-divider>
             <h2>Graphics</h2>

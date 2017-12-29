@@ -24,9 +24,6 @@
 	function Home(homeService) {
 		/*jshint validthis: true */
 		var vm = this;
-		vm.title = "Hello, ang-modular!";
-		vm.version = "1.0.0";
-		vm.listFeatures = homeService.getFeaturesList();
 
 		/* Formulaire */
 		vm.form = {
@@ -60,9 +57,22 @@
 				 Doit appeler le service http pour récuépérer les données selon la sélection */
 			apply :function(){
 				console.log("click"+ vm.form.repoGitHub.selectedRepo + " "+ vm.form.period.selectedOption.name + " "+ vm.form.groupment.selectedOption.name);
+				var data = homeService.getData();
+				vm.maj(data);
 			},
 		}
 
+		vm.maj = function(data){
+			vm.dataLineChartOI = data.lineChartOI;
+			vm.dataLineChartCI = data.lineChartCI;
+			vm.dataLineChartI = data.lineChartI;
+			vm.dataBarChartOI = data.BarChartOI.data;
+			vm.seriesBarChartOI = data.BarChartOI.series;
+			vm.dataBarChartCI = data.BarChartCI.data;
+			vm.seriesBarChartCI = data.BarChartCI.series;
+			vm.dataBarChartI = data.BarChartI.data;
+			vm.seriesBarChartI = data.BarChartI.series;
+		}
 
 		/* Data des lineChart */
 		vm.dataLineChartOI = [ [65, 59, 80, 81, 56, 55, 40], ];
