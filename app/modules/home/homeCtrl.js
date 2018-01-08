@@ -59,9 +59,8 @@
 				var repo = vm.form.repoGitHub.selectedRepo;
 				var period =  vm.form.period.selectedOption.name ;
 				var groupment = vm.form.groupment.selectedOption.name;
-				console.log("click"+ repo+ " "+ perdod + " "+ groupment);
-				var data = homeService.getData(repo,period,groupment);
-				vm.maj(data);
+				console.log("click"+ repo+ " "+ period + " "+ groupment);
+				homeService.getData(repo,period,groupment,vm.maj);
 			},
 		}
 

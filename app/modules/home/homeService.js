@@ -12,11 +12,11 @@
 	angular.module('ang-modular')
 		.factory('homeService', homeService);
 
-	homeService.$inject = ['$http'];
+	homeService.$inject = ['$http', '$rootScope', '$window'];
 
 	function homeService($http) {
 
-		/* Data récupérés sur le serveur */
+		/* Data */
 		var data = {
 			lineChartOI : [ [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] ],
 			lineChartCI : [ [65, 59, 80, 81, 56, 12, 40, 76, 98, 10, 28, 9, 76], ],
@@ -35,40 +35,50 @@
 			},
 		};
 
+	/*	var socket = io();
+
+		socket.on('number-of-issues-by-authors-results', (data) => {
+		  console.log(data);
+		});
+	
+		socket.on('number-of-issues-by-authors-old-results', (data) => {
+		  console.log(data);
+		});
+	
+		socket.on('number-of-issues-by-grouping-results', function (data) {
+		  console.log(data);
+		});
+*/
+			
 		return {
 			getData : getData
 		};
 
-		var url = 'urlServer';
-		var repo = 'repo';
-		var owner = 'owner';
-		var entpoint1 = 'number-of-issues-by-grouping';
-		var entpoint2 = 'number-of-issues-by-authors';
 
-		function getData(repo,period,groupment){
-			/* Ici doit se faire la requête au serveur */
-			const request = repo.replace('https', 'http').replace('http://github.com/', '');
+		function getData(repo, period, groupment, callback){
 
-			const infos = request.split('/');
-			const owner = infos[0];
-			const repo = infos[1];
+		/*	socket.emit('number-of-issues-by-authors', {
+				owner: 'google',
+				repo: 'WebFundamentals',
+				dataAgeValue: 2,
+				dataAgeUnit: 'months',
+			  });
 
-
-			$http({
-				method: 'GET',
-				url :`${url}/'${entpoint1}/${owner}/${repo}/${period}/${groupment}`
-			}).then(function successCallback(response) {
-				var resp = response.data;
-				console.log(resp);
-				// this callback will be called asynchronously
-				// when the response is available
-			}, function errorCallback(response) {
-				console.log('error');
-				// called asynchronously if an error occurs
-				// or server returns response with an error status.
-			});
-			return data;
+			socket.emit('number-of-issues-by-grouping', {
+				owner: 'google',
+				repo: 'WebFundamentals',
+				dataAgeValue: 2,
+				dataAgeUnit: 'weeks',
+				dataAgeGrouping: 'days',
+			  });
+			  */
+		
+			  /* Ce qui devrait être appelé par socket.on */
+			  callback(data);
 		}
+
+
+		
 
 	}
 
