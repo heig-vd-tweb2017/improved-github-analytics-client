@@ -39,15 +39,24 @@
 			getData : getData
 		};
 
-		var url = 'https://evening-garden-52901.herokuapp.com';
-		var repo = 'angular';
-		var owner = 'angular';
+		var url = 'urlServer';
+		var repo = 'repo';
+		var owner = 'owner';
+		var entpoint1 = 'number-of-issues-by-grouping';
+		var entpoint2 = 'number-of-issues-by-authors';
 
-		function getData(){
+		function getData(repo,period,groupment){
 			/* Ici doit se faire la requête au serveur */
+			const request = repo.replace('https', 'http').replace('http://github.com/', '');
+
+			const infos = request.split('/');
+			const owner = infos[0];
+			const repo = infos[1];
+
+
 			$http({
 				method: 'GET',
-				url :`${url}/api/opened-issues/${owner}/${repo}`
+				url :`${url}/'${entpoint1}/${owner}/${repo}/${period}/${groupment}`
 			}).then(function successCallback(response) {
 				var resp = response.data;
 				console.log(resp);

@@ -56,8 +56,11 @@
 			/* Fonction appelée au clique du bouton search 
 				 Doit appeler le service http pour récuépérer les données selon la sélection */
 			apply :function(){
-				console.log("click"+ vm.form.repoGitHub.selectedRepo + " "+ vm.form.period.selectedOption.name + " "+ vm.form.groupment.selectedOption.name);
-				var data = homeService.getData();
+				var repo = vm.form.repoGitHub.selectedRepo;
+				var period =  vm.form.period.selectedOption.name ;
+				var groupment = vm.form.groupment.selectedOption.name;
+				console.log("click"+ repo+ " "+ perdod + " "+ groupment);
+				var data = homeService.getData(repo,period,groupment);
 				vm.maj(data);
 			},
 		}
