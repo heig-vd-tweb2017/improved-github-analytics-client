@@ -13,8 +13,8 @@
 	angular.module('ang-modular', [
 		'ngResource',
 		'ngAria',
-		 'ui.bootstrap',
-		 'ngMaterial',
+		'ui.bootstrap',
+		'ngMaterial',
 		'ngMdIcons',
 		'ngMessages',
 		'ngCookies',

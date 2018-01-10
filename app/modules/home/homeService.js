@@ -34,21 +34,6 @@
 				data : [ [3], [5], [1], ],
 			},
 		};
-
-	/*	var socket = io();
-
-		socket.on('number-of-issues-by-authors-results', (data) => {
-		  console.log(data);
-		});
-	
-		socket.on('number-of-issues-by-authors-old-results', (data) => {
-		  console.log(data);
-		});
-	
-		socket.on('number-of-issues-by-grouping-results', function (data) {
-		  console.log(data);
-		});
-*/
 			
 		return {
 			getData : getData
@@ -56,24 +41,6 @@
 
 
 		function getData(repo, period, groupment, callback){
-
-		/*	socket.emit('number-of-issues-by-authors', {
-				owner: 'google',
-				repo: 'WebFundamentals',
-				dataAgeValue: 2,
-				dataAgeUnit: 'months',
-			  });
-
-			socket.emit('number-of-issues-by-grouping', {
-				owner: 'google',
-				repo: 'WebFundamentals',
-				dataAgeValue: 2,
-				dataAgeUnit: 'weeks',
-				dataAgeGrouping: 'days',
-			  });
-			  */
-		
-			  /* Ce qui devrait être appelé par socket.on */
 			  callback(data);
 		}
 

@@ -119,9 +119,12 @@ module.exports = function (grunt) {
 						'app/app.config.js',
 						'app/**/*Module.js',
 						'app/**/*Route.js',
+						'app/**/*SocketIo.js',
 						'app/**/*Ctrl.js',
 						'app/**/*Service.js',
-						'app/**/*Directive.js'
+						'app/**/*Directive.js',
+						'src/bower_components/socket.io-client/socket.io.js',
+						'src/bower_components/angular-socket-io/socket.js',
 					]
 				}
 			},
