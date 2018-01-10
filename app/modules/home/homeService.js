@@ -39,13 +39,9 @@
 			getData : getData
 		};
 
-
 		function getData(repo, period, groupment, callback){
 			  callback(data);
-		}
-
-
-		
+		}	
 
 	}
 

@@ -1,6 +1,5 @@
 (function () {
-  
-
+	'use strict';
   /**
 	* @ngdoc function
 	* @name app.controller:HomeCtrl
@@ -15,22 +14,25 @@
 
   Home.$inject = ['homeService', 'socketio', '$scope', '$window'];
 
-  /*
-	* recommend
-	* Using function declarations
-	* and bindable members up top.
-	*/
-
   function Home(homeService, socketio) {
     /* jshint validthis: true */
-    let vm = this;
+    const vm = this;
 
-    
     socketio.on('number-of-issues-by-authors-results', (data) => {
       console.log('Results for "number-of-issues-by-authors-results" are: ');
       console.log(data);
     });
-        
+
+    socketio.on('number-of-issues-by-grouping-results', (data) => {
+      console.log('Results for "number-of-issues-by-grouping-results" are: ');
+      console.log(data);
+    });
+
+    socketio.on('number-of-issues-by-authors-old-results', (data) => {
+      console.log('Results for "number-of-issues-by-authors-old-results" are: ');
+      console.log(data);
+    });
+
     /* Formulaire */
     vm.form = {
       repoGitHub: {
@@ -62,33 +64,30 @@
 
       /* Fonction appelée au clique du bouton search
 				Utilise socket io pour récupérer les données */
-      apply(){
+      apply() {
         const dataSrc = {
+          owner: 'google',
+          repo: 'WebFundamentals',
+          ataAgeValue: 2,
+          dataAgeUnit: 'months',
+        };
+
+       
+
+        // Pack the fields in one object
+        const dataSrcBar = {
           owner : 'google',
           repo : 'WebFundamentals',
-          ataAgeValue : 2,
+          dataAgeValue : 2,
           dataAgeUnit : 'months',
+          dataAgeGrouping : 'days',
         }
 
         console.log(dataSrc);
 
-      //  $scope.$emit('number-of-issues-by-authors', dataSrc, function(){ console.log('test ok')});
-      socketio.emit('number-of-issues-by-authors', dataSrc, function(){ console.log('test ok')});
-      
-			},
-    };
-
-
-    vm.maj = function (data) {
-      vm.dataLineChartOI = data.lineChartOI;
-      vm.dataLineChartCI = data.lineChartCI;
-      vm.dataLineChartI = data.lineChartI;
-      vm.dataBarChartOI = data.BarChartOI.data;
-      vm.seriesBarChartOI = data.BarChartOI.series;
-      vm.dataBarChartCI = data.BarChartCI.data;
-      vm.seriesBarChartCI = data.BarChartCI.series;
-      vm.dataBarChartI = data.BarChartI.data;
-      vm.seriesBarChartI = data.BarChartI.series;
+        socketio.emit('number-of-issues-by-authors', dataSrc);
+        socketio.emit('number-of-issues-by-grouping',dataSrcBar);
+      },
     };
 
     /* Data des lineChart */
@@ -125,9 +124,9 @@
 				  pointHoverBorderColor: 'rgba(159,204,0, 1)',
         }, 'rgba(250,109,33,0.5)', '#9a9a9a', 'rgb(233,177,69)',
       ],
-      onClick (points, evt) {
-				console.log(points, evt);
-			},
+      onClick(points, evt) {
+        console.log(points, evt);
+      },
     };
 
     /* Data des BarChart */

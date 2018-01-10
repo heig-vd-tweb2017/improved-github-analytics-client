@@ -18,7 +18,7 @@
 
     function init() {
       const ioUrl = 'https://improved-github-analytics-srv.herokuapp.com';
-     $window.socket = io(ioUrl);
+      $window.socket = io(ioUrl);
     }
 
     function on(eventName, callback) {
@@ -43,17 +43,4 @@
       });
     }
   }
-
-  /** Version btford */
-  /*
-    return function (socketFactory) {
-      const myIoSocket = io.connect('https://improved-github-analytics-srv.herokuapp.com');
-
-      mySocket = socketFactory({
-        ioSocket: myIoSocket,
-      });
-
-      return mySocket;
-    };
-  } */
 }());
