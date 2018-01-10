@@ -13,7 +13,7 @@
     .module('ang-modular')
     .controller('HomeCtrl', Home);
 
-  Home.$inject = ['homeService'];
+  Home.$inject = ['homeService', 'socketio', '$scope', '$window'];
 
   /*
 	* recommend
@@ -21,10 +21,16 @@
 	* and bindable members up top.
 	*/
 
-  function Home(homeService) {
+  function Home(homeService, socketio) {
     /* jshint validthis: true */
     let vm = this;
 
+    
+    socketio.on('number-of-issues-by-authors-results', (data) => {
+      console.log('Results for "number-of-issues-by-authors-results" are: ');
+      console.log(data);
+    });
+        
     /* Formulaire */
     vm.form = {
       repoGitHub: {
@@ -53,8 +59,9 @@
         ],
         selectedOption: { id: '1', name: '1 an' }, // default option
       },
+
       /* Fonction appelée au clique du bouton search
-				 Doit appeler le service http pour récuépérer les données selon la sélection */
+				Utilise socket io pour récupérer les données */
       apply(){
         const dataSrc = {
           owner : 'google',
@@ -62,10 +69,15 @@
           ataAgeValue : 2,
           dataAgeUnit : 'months',
         }
-//				console.log("click"+ repo+ " "+ period + " "+ groupment);
-				mySocket.emit('https://improved-github-analytics-srv.herokuapp.com', dataSrc);
+
+        console.log(dataSrc);
+
+      //  $scope.$emit('number-of-issues-by-authors', dataSrc, function(){ console.log('test ok')});
+      socketio.emit('number-of-issues-by-authors', dataSrc, function(){ console.log('test ok')});
+      
 			},
     };
+
 
     vm.maj = function (data) {
       vm.dataLineChartOI = data.lineChartOI;

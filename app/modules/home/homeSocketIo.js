@@ -1,24 +1,59 @@
 (function () {
-	'use strict';
+  'use strict';
+  /* angular.module('ang-modular')
+      .factory('mySocket', mySocket); */
+  angular.module('ang-modular').factory('socketio', socketFactory);
 
-    angular.module('ang-modular');
-/*
-  angular.module('ang-modular', [ 
-    'btford.socket-io'
-  ])
-   .factory('homeSocketIo', homeSocketIo);
+  socketFactory.$inject = ['$rootScope', '$window'];
+  function socketFactory($rootScope, $window) {
+    /** Version comme l'exemple bird */
+    let socket;
+    const services = {
+      on,
+      emit,
+      init,
+    };
 
-   homeSocketIo.$inject = ['$http', '$rootScope', '$window'];
+    return services;
 
-  function homeSocketIo($http) {}
-    /*function mySocket() {
-        let myIoSocket = io.connect('/some/path');
-        return mySocket;
-      }
-    
-      return {
-          mySocket: mySocket
-      }
-    }*/
+    function init() {
+      const ioUrl = 'https://improved-github-analytics-srv.herokuapp.com';
+     $window.socket = io(ioUrl);
+    }
 
-})();
+    function on(eventName, callback) {
+      console.log('enter to on');
+      $window.socket.on(eventName, function () {
+        const args = arguments;
+        $rootScope.$apply(() => {
+          callback.apply($window.socket, args);
+        });
+      });
+    }
+
+    function emit(eventName, data, callback) {
+      console.log('enter to emit');
+      $window.socket.emit(eventName, data, function () {
+        const args = arguments;
+        $rootScope.$apply(() => {
+          if (callback) {
+            callback.apply($window.socket, args);
+          }
+        });
+      });
+    }
+  }
+
+  /** Version btford */
+  /*
+    return function (socketFactory) {
+      const myIoSocket = io.connect('https://improved-github-analytics-srv.herokuapp.com');
+
+      mySocket = socketFactory({
+        ioSocket: myIoSocket,
+      });
+
+      return mySocket;
+    };
+  } */
+}());

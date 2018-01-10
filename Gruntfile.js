@@ -117,14 +117,14 @@ module.exports = function (grunt) {
 						'bower.json',
 						'app/app.js',
 						'app/app.config.js',
+						'src/bower_components/socket.io-client/dist/socket.io.js',
+						'src/bower_components/angular-socket-io/socket.js',
 						'app/**/*Module.js',
 						'app/**/*Route.js',
 						'app/**/*SocketIo.js',
 						'app/**/*Ctrl.js',
 						'app/**/*Service.js',
 						'app/**/*Directive.js',
-						'src/bower_components/socket.io-client/socket.io.js',
-						'src/bower_components/angular-socket-io/socket.js',
 					]
 				}
 			},
