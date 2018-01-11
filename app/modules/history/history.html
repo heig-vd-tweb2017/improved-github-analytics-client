@@ -1,0 +1,15 @@
+<div class="md-padding" flex layout-sm="column">
+    <md-card>
+        <md-card-content>
+        <h1 class="margin-top-50">Features</h1>
+            <ul>
+                <li class=" text-left" ng-repeat="item in vm.history">
+                    <p><ng-md-icon icon="send"></ng-md-icon> {{item.title}}</p>
+                    <table>
+                        <tr>{{item.content}}</tr>
+                    </table>
+                </li>
+            </ul>
+        </md-card-content>
+    </md-card>
+</div>

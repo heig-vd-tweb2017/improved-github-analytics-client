@@ -40,53 +40,59 @@
       },
       period: {
         availableOptions: [
-          { id: '0', name: '> 1 an' },
-          { id: '1', name: '1 an' },
-          { id: '2', name: '6 mois' },
-          { id: '3', name: '3 mois' },
-          { id: '4', name: '1 mois' },
-          { id: '5', name: '1 semaine' },
-          { id: '6', name: '1 jour' },
+          { id: '0', name: '> 1 an', value:'2' },
+          { id: '1', name: '1 an', value:'2' },
+          { id: '2', name: '6 mois', value:'2' },
+          { id: '3', name: '3 mois' , value:'2'},
+          { id: '4', name: '1 mois', value:'2' },
+          { id: '5', name: '1 semaine', value:'2' },
+          { id: '6', name: '1 jour', value:'2' },
         ],
-        selectedOption: { id: '0', name: '> 1 an' }, // default option
+        selectedOption: { id: '0', name: '> 1 an', value:'2' }, // default option
       },
       groupment: {
         availableOptions: [
-          { id: '1', name: '1 an' },
-          { id: '2', name: '6 mois' },
-          { id: '3', name: '3 mois' },
-          { id: '4', name: '1 mois' },
-          { id: '5', name: '2 semaines' },
-          { id: '6', name: '1 semaine' },
+          { id: '1', name: '1 an', value:'months' },
+          { id: '2', name: '6 mois',value:'months'  },
+          { id: '3', name: '3 mois' ,value:'months' },
+          { id: '4', name: '1 mois' ,value:'months' },
+          { id: '5', name: '2 semaines',value:'months' },
+          { id: '6', name: '1 semaine' ,value:'months' },
         ],
-        selectedOption: { id: '1', name: '1 an' }, // default option
+        selectedOption: { id: '1', name: '1 an' , value: 'months'}, // default option
       },
 
       /* Fonction appelée au clique du bouton search
 				Utilise socket io pour récupérer les données */
       apply() {
-        const dataSrc = {
-          owner: 'google',
-          repo: 'WebFundamentals',
-          ataAgeValue: 2,
-          dataAgeUnit: 'months',
-        };
+        const repoGithub = vm.form.repoGitHub.selectedRepo.replace('https', 'http').replace('http://github.com/', '');
+        const infos = repoGithub.split('/');
 
-       
+        const owner = infos[0];
+        const repo = infos[1];
+    
+        console.log(owner);
+        console.log(repo);
 
-        // Pack the fields in one object
-        const dataSrcBar = {
+        const dataLine = {
+          owner: infos[0],
+          repo: infos[1],
+          dataAgeValue: vm.form.period.selectedOption.value,
+          dataAgeUnit: vm.form.period.selectedOption.value,
+        }
+        const dataBar={
           owner : 'google',
           repo : 'WebFundamentals',
           dataAgeValue : 2,
           dataAgeUnit : 'months',
           dataAgeGrouping : 'days',
-        }
+      }
+        console.log(dataLine);
+        console.log(dataBar);
+      
 
-        console.log(dataSrc);
-
-        socketio.emit('number-of-issues-by-authors', dataSrc);
-        socketio.emit('number-of-issues-by-grouping',dataSrcBar);
+        socketio.emit('number-of-issues-by-authors', dataLine);
+        socketio.emit('number-of-issues-by-grouping', dataBar);
       },
     };
 
