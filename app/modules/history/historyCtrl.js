@@ -1,7 +1,6 @@
 (function() {
 	'use strict';
-
-	/**
+  /**
 	* @ngdoc function
 	* @name app.controller:historyCtrl
 	* @description
@@ -10,30 +9,35 @@
 	*/
 
   	angular
-		.module('ang-modular')
-		.controller('HistoryCtrl', History);
+    .module('ang-modular')
+    .controller('historyCtrl', History);
 
-		History.$inject = [];
+  History.$inject = ['socketio', '$scope', '$window', 'historyService'];
 
-		/*
+  /*
 		* recommend
 		* Using function declarations
 		* and bindable members up top.
 		*/
 
-		function History() {
-			/*jshint validthis: true */
-			var vm = this;
+  function History(socketio, $scope, $window, historyService) {
+    /* jshint validthis: true */
+	const vm = this;
+	
+	socketio.on('number-of-issues-by-authors-old-results', (data) => {
+		console.log('Results for "number-of-issues-by-authors-old-results" are: ');
+		console.log(data);
+		historyService.setData(data.data);
+	});
 
-			vm.history = [
-					{ id: '1', title: 'Date de rerche', content :['1 an' ]},
-					{ id: '1', title: 'Date de rerche', content :['1 an' ]},
-					{ id: '1', title: 'Date de rerche', content :['1 an' ]},
-					{ id: '1', title: 'Date de rerche', content :['1 an' ]},
-					{ id: '1', title: 'Date de rerche', content :['1 an' ]},
-					{ id: '1', title: 'Date de rerche', content :['1 an' ]},
-			];
+	vm.history = historyService.getData();
+	vm.repo = historyService.getRepo();
 
-		}
+    vm.refresh = function () {
+      console.log('DATA REFRESH');
+      const vart = historyService.getData();
+      console.log(vart);
+	};
 
-})();
+  }
+}());

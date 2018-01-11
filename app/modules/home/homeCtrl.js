@@ -12,26 +12,27 @@
     .module('ang-modular')
     .controller('HomeCtrl', Home);
 
-  Home.$inject = ['homeService', 'socketio', '$scope', '$window'];
+  Home.$inject = ['socketio', '$scope', '$window','historyService'];
 
-  function Home(homeService, socketio) {
+  function Home(socketio,$scope,$window,historyService) {
     /* jshint validthis: true */
     const vm = this;
 
     socketio.on('number-of-issues-by-authors-results', (data) => {
       console.log('Results for "number-of-issues-by-authors-results" are: ');
-      console.log(data);
+     // console.log(data);
     });
 
     socketio.on('number-of-issues-by-grouping-results', (data) => {
       console.log('Results for "number-of-issues-by-grouping-results" are: ');
-      console.log(data);
+     // console.log(data);
     });
 
     socketio.on('number-of-issues-by-authors-old-results', (data) => {
-      console.log('Results for "number-of-issues-by-authors-old-results" are: ');
-      console.log(data);
-    });
+    console.log('Results for "number-of-issues-by-authors-old-results" are: ');
+	  console.log(data);
+    historyService.setData(data.data);
+  });
 
     /* Formulaire */
     vm.form = {
@@ -70,15 +71,12 @@
 
         const owner = infos[0];
         const repo = infos[1];
-    
-        console.log(owner);
-        console.log(repo);
 
         const dataLine = {
-          owner: infos[0],
-          repo: infos[1],
-          dataAgeValue: vm.form.period.selectedOption.value,
-          dataAgeUnit: vm.form.period.selectedOption.value,
+          owner: 'google',
+          repo: 'WebFundamentals',
+          dataAgeValue: 2,
+          dataAgeUnit:'months',
         }
         const dataBar={
           owner : 'google',
@@ -87,9 +85,7 @@
           dataAgeUnit : 'months',
           dataAgeGrouping : 'days',
       }
-        console.log(dataLine);
-        console.log(dataBar);
-      
+       historyService.setRepo(owner, repo);
 
         socketio.emit('number-of-issues-by-authors', dataLine);
         socketio.emit('number-of-issues-by-grouping', dataBar);

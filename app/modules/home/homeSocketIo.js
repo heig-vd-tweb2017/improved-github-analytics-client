@@ -22,7 +22,6 @@
     }
 
     function on(eventName, callback) {
-      console.log('enter to on');
       $window.socket.on(eventName, function () {
         const args = arguments;
         $rootScope.$apply(() => {
@@ -32,7 +31,6 @@
     }
 
     function emit(eventName, data, callback) {
-      console.log('enter to emit');
       $window.socket.emit(eventName, data, function () {
         const args = arguments;
         $rootScope.$apply(() => {
