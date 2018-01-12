@@ -20,12 +20,12 @@
 
     socketio.on('number-of-issues-by-authors-results', (data) => {
       console.log('Results for "number-of-issues-by-authors-results" are: ');
-     // console.log(data);
+      console.log(data);
     });
 
     socketio.on('number-of-issues-by-grouping-results', (data) => {
       console.log('Results for "number-of-issues-by-grouping-results" are: ');
-     // console.log(data);
+      console.log(data);
     });
 
     socketio.on('number-of-issues-by-authors-old-results', (data) => {
@@ -41,26 +41,24 @@
       },
       period: {
         availableOptions: [
-          { id: '0', name: '> 1 an', value:'2' },
-          { id: '1', name: '1 an', value:'2' },
-          { id: '2', name: '6 mois', value:'2' },
-          { id: '3', name: '3 mois' , value:'2'},
-          { id: '4', name: '1 mois', value:'2' },
-          { id: '5', name: '1 semaine', value:'2' },
-          { id: '6', name: '1 jour', value:'2' },
+          { id: '0', name: '> 1 an', value:'10', unit:'years' },
+          { id: '1', name: '1 an', value:'1', unit:'years' },
+          { id: '2', name: '6 mois', value:'6', unit:'months' },
+          { id: '3', name: '3 mois' , value:'2', unit:'months'},
+          { id: '4', name: '1 mois', value:'1', unit:'months' },
+          { id: '5', name: '1 semaine', value:'1', unit:'week' },
+          { id: '6', name: '1 jour', value:'1', unit:'day' },
         ],
-        selectedOption: { id: '0', name: '> 1 an', value:'2' }, // default option
+        selectedOption: {id: '0', name: '> 1 an', value:'10', unit:'years' }, // default option
       },
       groupment: {
         availableOptions: [
-          { id: '1', name: '1 an', value:'months' },
-          { id: '2', name: '6 mois',value:'months'  },
-          { id: '3', name: '3 mois' ,value:'months' },
-          { id: '4', name: '1 mois' ,value:'months' },
-          { id: '5', name: '2 semaines',value:'months' },
-          { id: '6', name: '1 semaine' ,value:'months' },
+          { id: '1', name: 'années', value: 'years' },
+          { id: '2', name: 'mois',value:'months'  },
+          { id: '3', name: 'semaines' ,value:'weeks' },
+          { id: '4', name: 'jours' ,value:'days' },
         ],
-        selectedOption: { id: '1', name: '1 an' , value: 'months'}, // default option
+        selectedOption: {id: '1', name: 'années', value: 'years'}, // default option
       },
 
       /* Fonction appelée au clique du bouton search
@@ -69,23 +67,29 @@
         const repoGithub = vm.form.repoGitHub.selectedRepo.replace('https', 'http').replace('http://github.com/', '');
         const infos = repoGithub.split('/');
 
-        const owner = infos[0];
-        const repo = infos[1];
+        const ownerSelected = infos[0];
+        const repoSelected = infos[1];
 
         const dataLine = {
-          owner: 'google',
-          repo: 'WebFundamentals',
-          dataAgeValue: 2,
-          dataAgeUnit:'months',
+          owner: ownerSelected,
+          repo: repoSelected,
+          dataAgeValue: vm.form.period.selectedOption.value,
+          dataAgeUnit: vm.form.period.selectedOption.unit,
         }
+
         const dataBar={
-          owner : 'google',
-          repo : 'WebFundamentals',
-          dataAgeValue : 2,
-          dataAgeUnit : 'months',
-          dataAgeGrouping : 'days',
+          owner : ownerSelected,
+          repo : repoSelected,
+          dataAgeValue : vm.form.period.selectedOption.value,
+          dataAgeUnit : vm.form.period.selectedOption.unit,
+          dataAgeGrouping : vm.form.groupment.selectedOption.value,
       }
-       historyService.setRepo(owner, repo);
+       historyService.setRepo(ownerSelected, repoSelected);
+
+       console.log('DataLine : ');
+       console.log(dataLine);
+       console.log('DataBar');
+       console.log(dataBar);
 
         socketio.emit('number-of-issues-by-authors', dataLine);
         socketio.emit('number-of-issues-by-grouping', dataBar);
@@ -113,6 +117,16 @@
               display: true,
               position: 'left',
 				  },
+          ],
+          xAxes:[
+            {
+              type: 'time',
+              time: {
+                displayFormats:{
+                  wuarter: 'MM YYYY',
+                },
+              },
+            },
           ],
 			  },
       },
