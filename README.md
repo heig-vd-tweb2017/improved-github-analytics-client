@@ -1,8 +1,8 @@
 # Project - Improved Github Analytics
 This project is conducted for the course "TWEB-2017", at HEIG-VD, Switzerland.
 
-* Teacher: Olivier Liechti.
-* Authors: Ludovic Delafontaine & Michela Zucca.
+* Teacher: Olivier Liechti
+* Authors: Ludovic Delafontaine & Michela Zucca
 
 ## Foreword
 This is an improved version of the original Github Analytics project you can find [here](https://heig-vd-tweb2017.github.io/github-analytics-client). The following elements have changed or have been improved:
@@ -26,7 +26,7 @@ More details can be found in the `How is it` section.
 
 ## What is this
 This project proposes to analyze a GitHub repository, especially on issues management:
-	
+
 * Time analysis of opened issues.
 * Time analysis of closed issues.
 * Time analysis of the ratio between opened and closed issues.
@@ -72,7 +72,7 @@ Server side:
 * [Docker Compose](https://docs.docker.com/compose/) to deploy and test the application locally.
 
 ## Live testing
-You can test the entire application [here](https://heig-vd-tweb2017.github.io/improved-github-analytics-client). Feel free to test it !
+You can test the entire application [here](https://heig-vd-tweb2017.github.io/improved-github-analytics-client/). Feel free to test it !
 
 or
 
