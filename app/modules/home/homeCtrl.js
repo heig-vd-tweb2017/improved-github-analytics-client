@@ -26,6 +26,7 @@
     socketio.on('number-of-issues-by-grouping-results', (data) => {
       console.log('Results for "number-of-issues-by-grouping-results" are: ');
       console.log(data);
+      vm.dataLineChartOI = data.data.issuees;
     });
 
     socketio.on('number-of-issues-by-authors-old-results', (data) => {

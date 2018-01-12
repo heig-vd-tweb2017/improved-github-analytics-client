@@ -114,8 +114,8 @@ module.exports = function (grunt) {
 			dev: {
 				files: {
 					'index.html': [
-						'bower.json',
 						'src/bower_components/moment/moment.js',
+						'bower.json',
 						'src/bower_components/moment/locat/*.js',
 						'src/bower_components/moment/min/moment-with-locales.js',
 						'app/app.js',
