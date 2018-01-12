@@ -29,18 +29,18 @@
 		}
 		];*/
 
-	const repo =  'https://github.com/<owner>/<repo>';
+	let repo =  'https://github.com/<owner>/<repo>';
 
 
     return {
       getData: getData,
-	  setData : setData,
-	  getRepo : getRepo,
-	  setRepo : setRepo
-	};
+	    setData : setData,
+	    getRepo : getRepo,
+	    setRepo : setRepo
+  	};
 	
-	function setRepo(owner, repo){
-		repo = 'https://github.com/' + owner + '/' + repo;
+	function setRepo(owner, repo2){
+		repo = 'https://github.com/' + owner + '/' + repo2;
 	}
 	function getRepo(){
 		return repo;

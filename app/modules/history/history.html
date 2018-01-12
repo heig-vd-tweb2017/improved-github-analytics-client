@@ -1,47 +1,67 @@
 <div class="md-padding" flex layout-sm="column">
     <md-card>
         <md-card-content>
-        <button ng-click="vm.refresh()">Search</button>
-        <h1 class="margin-top-50">Historiques des recherches</h1>
-        <h2>{{vm.repo}}</h2>
-        <ul>
-            <li class=" text-left" ng-repeat="item in vm.history">
-                <p><ng-md-icon icon="send"></ng-md-icon> Date de la recherche : {{item.date | date:'d MMM yyyy h:mm a'}}   <br>
-                Filtre : sur une période de {{item.age}} du {{item.end | date:'d/MMM/yyyy'}} au {{item.start | date:'d/MMM/yyyy'}}</p>
-
-        <table>
-            <style>
-                table, th , td {
-                    border: 1px solid grey;
-                    border-collapse: collapse;
-                    padding: 5px;
-                }
-                table tr:nth-child(odd) {
-                    background-color: #f2f2f2;
-                }
-                table tr:nth-child(even) {
-                    background-color: #ffffff;
-                }
-            </style>
-            <tr>
-                <th>Author</th>
-                <th>Closed Issues</th>
-            </tr>
-            <tr ng-repeat = "x in item.bestClosedIssuesAuthors">
-                <td>{{ x.author }}</td>
-                <td>{{ x.openedIssues }}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <th>Opened Issues</th>
-            </tr>
-            <tr ng-repeat="y in item.bestOpenedIssuesAuthors">
-                    <td>{{ y.author }}</td>
-                    <td>{{ y.openedIssues }}</td>
-            </tr>
-            </table>
-        </li>
-    </ul>
+            <button ng-click="vm.refresh()">Search</button>
+            <h1 class="margin-top-50">Historiques des recherches</h1>
+            <h2>{{vm.repo}}</h2>
+            <ul>
+                <li class=" text-left" ng-repeat="item in vm.history">
+                    <p><ng-md-icon icon="send"></ng-md-icon> Date of the search : {{item.date | date:'d MMM yyyy h:mm a'}}   <br>
+                    Filtre : Search period {{item.age}} from {{item.end | date:'d/MMM/yyyy'}} to {{item.start | date:'d/MMM/yyyy'}}</p>
+            
+            <div layout="row">
+                <div flex>
+                <table>
+                    <style>
+                        table, th , td {
+                            border: 1px solid grey;
+                            border-collapse: collapse;
+                            padding: 5px;
+                        }
+                        table tr:nth-child(odd) {
+                            background-color: #f2f2f2;
+                        }
+                        table tr:nth-child(even) {
+                            background-color: #ffffff;
+                        }
+                    </style>
+                    <tr>
+                        <th>Author</th>
+                        <th>Opened Issues</th>
+                    </tr>
+                    <tr ng-repeat="y in item.bestOpenedIssuesAuthors">
+                        <td>{{ y.author }}</td>
+                        <td>{{ y.openedIssues }}</td>
+                    </tr>
+                </table>   
+                </div>
+                <div flex>
+                    <table>
+                        <style>
+                            table, th , td {
+                                border: 1px solid grey;
+                                border-collapse: collapse;
+                                padding: 5px;
+                            }
+                            table tr:nth-child(odd) {
+                                background-color: #f2f2f2;
+                            }
+                            table tr:nth-child(even) {
+                                background-color: #ffffff;
+                            }
+                        </style> 
+                        <tr>
+                            <th>Author</th>
+                            <th>Closed Issues</th>
+                        </tr>
+                        <tr ng-repeat = "x in item.bestClosedIssuesAuthors">
+                            <td>{{ x.author }}</td>
+                            <td>{{ x.openedIssues }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </li>
+        </ul>
         </md-card-content>
     </md-card>
 </div>

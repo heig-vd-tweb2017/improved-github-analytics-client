@@ -32,6 +32,9 @@
     vm.dataLineChartOI = [[1, 2, 0, 4, 10, 20, 8]];
     vm.dataLineChartCI = [[40, 32, 93, 81, 4, 4, 7]];
     vm.dataLineChartI = [[10, -30, 2, 51, 0, -10, 20]];
+    /* Tableau des meilleurs */
+    vm.tableBestOI = [];
+    vm.tableBestCI = [];
 
      /* Formulaire */
      vm.form = {
@@ -84,11 +87,6 @@
           dataAgeGrouping: vm.form.groupment.selectedOption.value,
         };
         historyService.setRepo(ownerSelected, repoSelected);
-
-        console.log('DataLine : ');
-        console.log(dataLine);
-        console.log('DataBar');
-        console.log(dataBar);
 
         socketio.emit('number-of-issues-by-authors', dataLine);
         socketio.emit('number-of-issues-by-grouping', dataBar);
@@ -164,6 +162,8 @@
       vm.seriesBarChartCI = listClose.series;
       vm.dataBarChartCI = listClose.data;
       vm.labelsChartCI = listClose.labels;
+      vm.tableBestOI = tabBestOpen;
+      vm.tableBestCI = tabBestClose;
     };
 
     /** Mise à jour des lineChart */
@@ -254,7 +254,6 @@
           hoverBackgroundColor: 'rgba(205, 127, 50, 0.9)',		
         },
       ],
-
     };
     
   }

@@ -25,19 +25,10 @@
 	const vm = this;
 	
 	socketio.on('number-of-issues-by-authors-old-results', (data) => {
-		console.log('Results for "number-of-issues-by-authors-old-results" are: ');
-		console.log(data);
 		historyService.setData(data.data);
 	});
 
 	vm.history = historyService.getData();
 	vm.repo = historyService.getRepo();
-
-    vm.refresh = function () {
-      console.log('DATA REFRESH');
-      const vart = historyService.getData();
-      console.log(vart);
-	};
-
   }
 }());
