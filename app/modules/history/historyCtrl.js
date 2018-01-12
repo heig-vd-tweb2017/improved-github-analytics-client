@@ -30,5 +30,9 @@
 
 	vm.history = historyService.getData();
 	vm.repo = historyService.getRepo();
+
+	vm.refresh= function(){
+		console.log(vm.history);
+	}
   }
 }());
