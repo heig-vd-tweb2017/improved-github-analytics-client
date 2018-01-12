@@ -12,54 +12,52 @@
     .module('ang-modular')
     .controller('HomeCtrl', Home);
 
-  Home.$inject = ['socketio', '$scope', '$window','historyService'];
+  Home.$inject = ['socketio', '$scope', '$window', 'historyService'];
 
-  function Home(socketio,$scope,$window,historyService) {
+  function Home(socketio, $scope, $window, historyService) {
     /* jshint validthis: true */
     const vm = this;
 
-    socketio.on('number-of-issues-by-authors-results', (data) => {
-      console.log('Results for "number-of-issues-by-authors-results" are: ');
-      console.log(data);
-    });
+    /* Data des BarChart, configuration par défaut */
+    vm.seriesBarChartOI = ['Second', 'First', 'Third'];
+    vm.dataBarChartOI = [[2], [3], [1]];
+    vm.labelsChartOI = ['2ème', '1er', '3ème'];
+    vm.seriesBarChartCI = ['Second', 'First', 'Third'];
+    vm.labelsChartCI = ['2ème', '1er', '3ème'];
+    vm.dataBarChartCI =  [[2], [3], [1]];
+    vm.seriesBarChartI = ['Second', 'First', 'Third'];
+    vm.dataBarChartI =  [[2], [3], [1]];
+    vm.labelsChartI = ['2ème', '1er', '3ème'];
+    /* Data des lineChart, configuration par défaut*/
+    vm.dataLineChartOI = [[1, 2, 0, 4, 10, 20, 8]];
+    vm.dataLineChartCI = [[40, 32, 93, 81, 4, 4, 7]];
+    vm.dataLineChartI = [[10, -30, 2, 51, 0, -10, 20]];
 
-    socketio.on('number-of-issues-by-grouping-results', (data) => {
-      console.log('Results for "number-of-issues-by-grouping-results" are: ');
-      console.log(data);
-      vm.dataLineChartOI = data.data.issuees;
-    });
-
-    socketio.on('number-of-issues-by-authors-old-results', (data) => {
-    console.log('Results for "number-of-issues-by-authors-old-results" are: ');
-	  console.log(data);
-    historyService.setData(data.data);
-  });
-
-    /* Formulaire */
-    vm.form = {
+     /* Formulaire */
+     vm.form = {
       repoGitHub: {
         selectedRepo: 'https://github.com/<owner>/<repo>',
       },
       period: {
         availableOptions: [
-          { id: '0', name: '> 1 an', value:'10', unit:'years' },
-          { id: '1', name: '1 an', value:'1', unit:'years' },
-          { id: '2', name: '6 mois', value:'6', unit:'months' },
-          { id: '3', name: '3 mois' , value:'2', unit:'months'},
-          { id: '4', name: '1 mois', value:'1', unit:'months' },
-          { id: '5', name: '1 semaine', value:'1', unit:'week' },
-          { id: '6', name: '1 jour', value:'1', unit:'day' },
+          { id: '0', name: '> 1 year', value: '10', unit: 'years'},
+          { id: '1', name: '1 year', value: '1', unit: 'years' },
+          { id: '2', name: '6 months', value: '6', unit: 'months' },
+          { id: '3', name: '3 months', value: '2', unit: 'months' },
+          { id: '4', name: '1 months', value: '1', unit: 'months' },
+          { id: '5', name: '1 week', value: '1', unit: 'week'},
+          { id: '6', name: '1 day', value: '1', unit: 'day'},
         ],
-        selectedOption: {id: '0', name: '> 1 an', value:'10', unit:'years' }, // default option
+        selectedOption: { id: '0', name: '> 1 year', value: '10', unit: 'years'}, // default option
       },
       groupment: {
         availableOptions: [
-          { id: '1', name: 'années', value: 'years' },
-          { id: '2', name: 'mois',value:'months'  },
-          { id: '3', name: 'semaines' ,value:'weeks' },
-          { id: '4', name: 'jours' ,value:'days' },
+          { id: '1', name: 'years', value: 'years' },
+          { id: '2', name: 'months', value: 'months' },
+          { id: '3', name: 'weeks', value: 'weeks' },
+          { id: '4', name: 'days', value: 'days' },
         ],
-        selectedOption: {id: '1', name: 'années', value: 'years'}, // default option
+        selectedOption: { id: '1', name: 'years', value: 'years' }, // default option
       },
 
       /* Fonction appelée au clique du bouton search
@@ -76,61 +74,141 @@
           repo: repoSelected,
           dataAgeValue: vm.form.period.selectedOption.value,
           dataAgeUnit: vm.form.period.selectedOption.unit,
-        }
+        };
 
-        const dataBar={
-          owner : ownerSelected,
-          repo : repoSelected,
-          dataAgeValue : vm.form.period.selectedOption.value,
-          dataAgeUnit : vm.form.period.selectedOption.unit,
-          dataAgeGrouping : vm.form.groupment.selectedOption.value,
-      }
-       historyService.setRepo(ownerSelected, repoSelected);
+        const dataBar = {
+          owner: ownerSelected,
+          repo: repoSelected,
+          dataAgeValue: vm.form.period.selectedOption.value,
+          dataAgeUnit: vm.form.period.selectedOption.unit,
+          dataAgeGrouping: vm.form.groupment.selectedOption.value,
+        };
+        historyService.setRepo(ownerSelected, repoSelected);
 
-       console.log('DataLine : ');
-       console.log(dataLine);
-       console.log('DataBar');
-       console.log(dataBar);
+        console.log('DataLine : ');
+        console.log(dataLine);
+        console.log('DataBar');
+        console.log(dataBar);
 
         socketio.emit('number-of-issues-by-authors', dataLine);
         socketio.emit('number-of-issues-by-grouping', dataBar);
       },
     };
 
-    /* Data des lineChart */
-    vm.dataLineChartOI = [[65, 59, 80, 81, 56, 55, 40]];
-    vm.dataLineChartCI = [[40, 32, 93, 81, 20, 55, 40]];
-    vm.dataLineChartI = [[21, 43, 67, 81, 56, 55, 40]];
+    /* évenements  */
+    socketio.on('number-of-issues-by-authors-results', (data) => {
+      vm.majChartBar(data.data.bestOpenedIssuesAuthors, data.data.bestClosedIssuesAuthors);
+    });
+
+    socketio.on('number-of-issues-by-grouping-results', (data) => {
+      vm.majChartLine(data.data.issues);
+    });
+
+    socketio.on('number-of-issues-by-authors-old-results', (data) => {
+      historyService.setData(data.data);
+    });
+
+    /** Traitement des données pour les barChart */
+    vm.dataBarChartTraitment = function (dataTable) {
+      const size = dataTable.length;
+      const listTables = {};
+
+      if (size >= 3) {
+        listTables.series = [dataTable[1].author, dataTable[0].author, dataTable[2].author];
+        listTables.data = [[dataTable[1].issues], [dataTable[0].issues], [dataTable[2].issues]];
+        listTables.labels = ['Second', 'First', 'Third'];
+      }
+      if (size == 2) {
+        listTables.series = [dataTable[1].author, dataTable[0].author];
+        listTables.data = [[dataTable[1].issues], [dataTable[0].issues]];
+        listTables.labels = ['Second', 'First'];
+      }
+      if (size == 1) {
+        listTables.series = [dataTable[0].author];
+        listTables.data = [[dataTable[0].issues]];
+        listTables.labels = ['First'];
+      }
+      return listTables;
+    };
+
+    /* Mise à jour des barChart */
+    vm.majChartBar = function (tabOpened, tabClosed) {
+      const tabBestOpen = [];
+      const tabBestClose = [];
+      const tabBestAll = [];
+
+      tabOpened.forEach((element) => {
+        const bestOpen = {
+          author: element.author,
+          issues: element.openedIssues,
+        };
+        tabBestOpen.push(bestOpen);
+      });
+
+      tabClosed.forEach((element) => {
+        const bestClose = {
+          author: element.author,
+          issues: element.closedIssues,
+        };
+        tabBestClose.push(bestClose);
+      });
+
+      const listOpen = vm.dataBarChartTraitment(tabBestOpen);
+
+      vm.seriesBarChartOI = listOpen.series;
+      vm.dataBarChartOI = listOpen.data;
+      vm.labelsChartOI = listOpen.labels;
+
+      const listClose = vm.dataBarChartTraitment(tabBestClose);
+
+      vm.seriesBarChartCI = listClose.series;
+      vm.dataBarChartCI = listClose.data;
+      vm.labelsChartCI = listClose.labels;
+    };
+
+    /** Mise à jour des lineChart */
+    vm.majChartLine = function (tab) {
+      let sommeOpen = 0;
+      let sommeClose = 0;
+      const diff = 0;
+
+      // Reset les labels
+      vm.lineChart.labels = [];
+
+      // tableau temporaire pour la création du graphe
+      const tabClosed = [];
+      const tabOpened = [];
+      const tabTendance = [];
+      tab.forEach((element) => {
+        const currentClose = element.closedIssues;
+        const currentOpen = element.openedIssues;
+        const newClose = currentClose + sommeClose;
+        const newOpen = currentOpen + sommeOpen;
+        sommeClose = newClose;
+        sommeOpen = newOpen;
+
+        const tend = (currentOpen - currentClose);
+
+        vm.lineChart.labels.push(element.date);
+        tabClosed.push(newClose);
+        tabOpened.push(newOpen);
+        tabTendance.push(tend);
+      });
+
+      // injecte dans les graphes
+      vm.dataLineChartCI = [tabClosed];
+      vm.dataLineChartOI = [tabOpened];
+      vm.dataLineChartI = [tabTendance];
+    };
 
     /* Configurations des linesChart */
     vm.lineChart = {
+      series: ['issues'],
       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-      series: ['Series A'],
-      datasetOverride: { yAxisID: 'y-axis-1' },
       options: {
         responsive: true,
         maintainAspectRatio: true,
-			  scales: {
-          yAxes: [
-				  {
-              id: 'y-axis-1',
-              type: 'linear',
-              display: true,
-              position: 'left',
-				  },
-          ],
-          xAxes:[
-            {
-              type: 'time',
-              time: {
-                displayFormats:{
-                  wuarter: 'MM YYYY',
-                },
-              },
-            },
-          ],
-			  },
-      },
+			},
       colors: [
         {
 				  backgroundColor: 'rgba(159,204,0, 0.2)',
@@ -146,18 +224,11 @@
       },
     };
 
-    /* Data des BarChart */
-    vm.seriesBarChartOI = ['Jean', 'Pierre', 'Jack'];
-    vm.dataBarChartOI = [[3], [5], [1]];
-    vm.seriesBarChartCI = ['Anne', 'Jack', 'Fred'];
-    vm.dataBarChartCI = [[2], [18], [9]];
-    vm.seriesBarChartI = ['Joe', 'Pascal', 'Charlie'];
-    vm.dataBarChartI = [[13], [14], [9]];
-
     /* Configuration des BarChart */
     vm.BarChart = {
-      labels: ['2ème', '1er', '3ème'],
       options: {
+        responsive: true,
+        maintainAspectRatio: true,
         scales: {
           yAxes: [{
             ticks: {
@@ -166,6 +237,25 @@
           }],
         },
       },
+      colors: [
+        {
+				  backgroundColor: 'rgba(192, 192, 192,0.3)',
+          borderColor: 'rgba(192, 192, 192, 0.5)',	
+          hoverBackgroundColor: 'rgba(192, 192, 192, 0.9)',
+        },
+        {
+				  backgroundColor: 'rgba(255, 215, 0, 0.3)',
+          borderColor: 'rgba(255, 215, 0, 0.5)',
+          hoverBackgroundColor: 'rgba(255, 215, 0, 0.9)',
+        },
+        {
+				  backgroundColor: 'rgba(205, 127, 50, 0.3)',
+          borderColor: 'rgba(205, 127, 50, 0.3)',		
+          hoverBackgroundColor: 'rgba(205, 127, 50, 0.9)',		
+        },
+      ],
+
     };
+    
   }
 }());
