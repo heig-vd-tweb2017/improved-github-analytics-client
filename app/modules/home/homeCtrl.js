@@ -28,13 +28,15 @@
     vm.seriesBarChartI = ['Second', 'First', 'Third'];
     vm.dataBarChartI =  [[2], [3], [1]];
     vm.labelsChartI = ['Second', 'First', 'Third'];
-    /* Data des lineChart, configuration par défaut*/
+    /* Data des lineChart, configuration par défaut */
     vm.dataLineChartOI = [[1, 2, 0, 4, 10, 20, 8]];
     vm.dataLineChartCI = [[40, 32, 93, 81, 4, 4, 7]];
     vm.dataLineChartI = [[10, -30, 2, 51, 0, -10, 20]];
     /* Tableau des meilleurs */
     vm.tableBestOI = [];
     vm.tableBestCI = [];
+    /* Nessage d'erreur du serveur */
+    vm.error = '';
 
      /* Formulaire */
      vm.form = {
@@ -64,7 +66,7 @@
       },
 
       /* Fonction appelée au clique du bouton search
-				Utilise socket io pour récupérer les données */
+        Utilise socket io pour récupérer les données */
       apply() {
         vm.error = '';
         const repoGithub = vm.form.repoGitHub.selectedRepo.replace('https', 'http').replace('http://github.com/', '');
@@ -94,7 +96,6 @@
       },
     };
 
-    vm.error = '';
     /* évenements  */
     socketio.on('number-of-issues-by-authors-results', (data) => {
       try {
@@ -223,16 +224,16 @@
       options: {
         responsive: true,
         maintainAspectRatio: true,
-			},
+      },
       colors: [
         {
           backgroundColor: 'rgba(159,204,0, 0.2)',
-				  pointBackgroundColor: 'rgba(159,204,0, 1)',
-				  pointHoverBackgroundColor: 'rgba(159,204,0, 0.8)',
-				  borderColor: 'rgba(159,204,0, 1)',
-				  pointBorderColor: '#fff',
-				  pointHoverBorderColor: 'rgba(159,204,0, 1)',
-        }, 
+          pointBackgroundColor: 'rgba(159,204,0, 1)',
+          pointHoverBackgroundColor: 'rgba(159,204,0, 0.8)',
+          borderColor: 'rgba(159,204,0, 1)',
+          pointBorderColor: '#fff',
+          pointHoverBorderColor: 'rgba(159,204,0, 1)',
+        },
       ],
       onClick(points, evt) {
         console.log(points, evt);
@@ -246,17 +247,19 @@
         maintainAspectRatio: true,
         layout: {
           padding: {
-              left: 10,
-              right: 0,
-              top: 0,
-              bottom: 0
-          }
-      },
+            left: 10,
+            right: 0,
+            top: 0,
+            bottom: 0,
+          },
+        },
         scales: {
-          xAxes:[{
-            barPercentage: 0.8,
-            categoryPercentage: 1,
-          }],
+          xAxes: [
+            {
+              barPercentage: 0.8,
+              categoryPercentage: 1,
+            },
+          ],
           yAxes: [{
             ticks: {
               beginAtZero: true,
@@ -267,19 +270,19 @@
       },
       colors: [
         {
-				  backgroundColor: 'rgba(192, 192, 192,0.3)',
-          borderColor: 'rgba(192, 192, 192, 0.5)',	
+          backgroundColor: 'rgba(192, 192, 192,0.3)',
+          borderColor: 'rgba(192, 192, 192, 0.5)',
           hoverBackgroundColor: 'rgba(192, 192, 192, 0.9)',
         },
         {
-				  backgroundColor: 'rgba(255, 215, 0, 0.3)',
+          backgroundColor: 'rgba(255, 215, 0, 0.3)',
           borderColor: 'rgba(255, 215, 0, 0.5)',
           hoverBackgroundColor: 'rgba(255, 215, 0, 0.9)',
         },
         {
-				  backgroundColor: 'rgba(205, 127, 50, 0.3)',
-          borderColor: 'rgba(205, 127, 50, 0.3)',		
-          hoverBackgroundColor: 'rgba(205, 127, 50, 0.9)',		
+          backgroundColor: 'rgba(205, 127, 50, 0.3)',
+          borderColor: 'rgba(205, 127, 50, 0.3)',
+          hoverBackgroundColor: 'rgba(205, 127, 50, 0.9)',
         },
       ],
     };

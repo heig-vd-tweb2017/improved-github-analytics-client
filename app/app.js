@@ -23,7 +23,6 @@
 		'ngSanitize',
 		'ui.router',
 		'home',
-		'btford.socket-io',
 	]).run(setupSocketIO);
 
 	function setupSocketIO(socketio, $rootScope) {
