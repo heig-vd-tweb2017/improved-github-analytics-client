@@ -66,6 +66,7 @@
       /* Fonction appelée au clique du bouton search
 				Utilise socket io pour récupérer les données */
       apply() {
+        vm.error = '';
         const repoGithub = vm.form.repoGitHub.selectedRepo.replace('https', 'http').replace('http://github.com/', '');
         const infos = repoGithub.split('/');
 
@@ -93,17 +94,30 @@
       },
     };
 
+    vm.error = '';
     /* évenements  */
     socketio.on('number-of-issues-by-authors-results', (data) => {
-      vm.majChartBar(data.data.bestOpenedIssuesAuthors, data.data.bestClosedIssuesAuthors);
+      try {
+        vm.majChartBar(data.data.bestOpenedIssuesAuthors, data.data.bestClosedIssuesAuthors);
+      } catch(err) {
+        vm.error = 'Url does not exist, please retry';
+      }
     });
 
     socketio.on('number-of-issues-by-grouping-results', (data) => {
-      vm.majChartLine(data.data.issues);
+      try {
+        vm.majChartLine(data.data.issues);
+      } catch(err) {
+        vm.error = 'Url does not exist, please retry';
+      }
     });
 
     socketio.on('number-of-issues-by-authors-old-results', (data) => {
-      historyService.setData(data.data);
+      try {
+        historyService.setData(data.data);
+      } catch(err) {
+        vm.error = 'Url does not exist, please retry';
+      }
     });
 
     /** Traitement des données pour les barChart */
@@ -212,13 +226,13 @@
 			},
       colors: [
         {
-				  backgroundColor: 'rgba(159,204,0, 0.2)',
+          backgroundColor: 'rgba(159,204,0, 0.2)',
 				  pointBackgroundColor: 'rgba(159,204,0, 1)',
 				  pointHoverBackgroundColor: 'rgba(159,204,0, 0.8)',
 				  borderColor: 'rgba(159,204,0, 1)',
 				  pointBorderColor: '#fff',
 				  pointHoverBorderColor: 'rgba(159,204,0, 1)',
-        }, 'rgba(250,109,33,0.5)', '#9a9a9a', 'rgb(233,177,69)',
+        }, 
       ],
       onClick(points, evt) {
         console.log(points, evt);
@@ -230,10 +244,23 @@
       options: {
         responsive: true,
         maintainAspectRatio: true,
+        layout: {
+          padding: {
+              left: 10,
+              right: 0,
+              top: 0,
+              bottom: 0
+          }
+      },
         scales: {
+          xAxes:[{
+            barPercentage: 0.8,
+            categoryPercentage: 1,
+          }],
           yAxes: [{
             ticks: {
               beginAtZero: true,
+              
             },
           }],
         },

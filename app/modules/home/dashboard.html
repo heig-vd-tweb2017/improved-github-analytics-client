@@ -4,16 +4,17 @@
             <h1>Select search options</h1>
             <form name="myForm">
                 <div layout="row" layout-padding>
-                    <div flex="70" layout="column">
-                        <label>Url epo GitHub</label><br>
+                    <div flex layout="column">
+                        <label>Url Repo GitHub</label><br>
                         <input type="url" name="repo" ng-model="vm.form.repoGitHub.selectedRepo" ng-required="true">
-                    </div>
-                    <div flex>
                         <span class="error" ng-show="myForm.repo.$error.required">
-                            url required !
+                            Error : url required !
                         </span>
                         <span class="error" ng-show="myForm.repo.$error.url">
-                            Not valid url !
+                            Error : Not valid url !
+                        </span>
+                        <span class="error" ng-show="vm.error">
+                            Error : {{vm.error}}
                         </span>
                     </div>
                 </div>
