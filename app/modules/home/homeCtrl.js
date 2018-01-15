@@ -21,13 +21,13 @@
     /* Data des BarChart, configuration par défaut */
     vm.seriesBarChartOI = ['Second', 'First', 'Third'];
     vm.dataBarChartOI = [[2], [3], [1]];
-    vm.labelsChartOI = ['2ème', '1er', '3ème'];
+    vm.labelsChartOI = ['Second', 'First', 'Third'];
     vm.seriesBarChartCI = ['Second', 'First', 'Third'];
-    vm.labelsChartCI = ['2ème', '1er', '3ème'];
+    vm.labelsChartCI = ['Second', 'First', 'Third'];
     vm.dataBarChartCI =  [[2], [3], [1]];
     vm.seriesBarChartI = ['Second', 'First', 'Third'];
     vm.dataBarChartI =  [[2], [3], [1]];
-    vm.labelsChartI = ['2ème', '1er', '3ème'];
+    vm.labelsChartI = ['Second', 'First', 'Third'];
     /* Data des lineChart, configuration par défaut*/
     vm.dataLineChartOI = [[1, 2, 0, 4, 10, 20, 8]];
     vm.dataLineChartCI = [[40, 32, 93, 81, 4, 4, 7]];
@@ -162,6 +162,7 @@
       vm.seriesBarChartCI = listClose.series;
       vm.dataBarChartCI = listClose.data;
       vm.labelsChartCI = listClose.labels;
+
       vm.tableBestOI = tabBestOpen;
       vm.tableBestCI = tabBestClose;
     };

@@ -38,7 +38,6 @@
                 <div layout="row" layout-margin>
                     <button ng-click="vm.form.apply()">Search</button>
                 </div>
-
             </form>
 
             <md-divider class="margin-top-20" ></md-divider>
@@ -54,12 +53,12 @@
                     </canvas>
                 </div>
                 <div flex=40>     
-                    <h3>Openned Issues</h3>
+                    <h3>Opened Issues</h3>
                     <p>This chart shows the progression of open issues on time.</p>
                 </div>
             </div>
             <div layout="row" layout-xs="column" layout-padding  layout-align="center center">
-            <div flex=40>     
+                <div flex=40>     
                     <h3>Closed Issues</h3>
                     <p>This chart shows the progression of closed issues on time.</p>    
                 </div>
@@ -74,21 +73,22 @@
                     </canvas>
                 </div>
                 <div flex=40>     
-                        <h3>Trend of Issues</h3>
-                        <p>This chart shows the evolution of issues over time.</p>
-                        <p>If the value is positive, this indicates that the number of open issues is greater than X by the number of closed issues.</p>
-                        <p>If the value is negative, this indicates that the number of closed issues is greater than X by the number of open issues..</p>
-                    </div>
+                    <h3>Trend of Issues</h3>
+                    <p>This chart shows the evolution of issues over time.</p>
+                    <p>If the value is positive, this indicates that the number of open issues is greater than X by the number of closed issues.</p>
+                    <p>If the value is negative, this indicates that the number of closed issues is greater than X by the number of open issues..</p>
+                </div>
             </div>
             <!-- Graphiques barChart-->
             <div layout="column" layout-align="center center">
-                    <h2>Podium of hyperactive</h2>
-                    <p>There is no competition. Opening or closing issues does not mean that you are the best of the team, but who does not want to climb a podium!</p>
-                    <p>So "tintintintintin", rolling drums ....</p>
-                </div>
+                <h2>Podium of hyperactive</h2>
+                <p>There is no competition. Opening or closing issues does not mean that you are the best of the team, but who does not want to climb a podium!</p>
+                <p>So "tintintintintin", rolling drums ....</p>
+            </div>
             <div layout="row" layout-xs="column">
-                    <div flex>
-                        <h3>Openned Issues Podium</h3>
+                <div flex>
+                    <div layout="column" layout-align="center center">
+                        <h3>Opened Issues Podium</h3>
                         <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChartOI" chart-series="vm.seriesBarChartOI" chart-labels="vm.labelsChartOI" chart-options="vm.BarChart.options", chart-colors="vm.BarChart.colors"></canvas>
                         <table>
                             <style>
@@ -103,59 +103,52 @@
                                 table tr:nth-child(even) {
                                     background-color: #ffffff;
                                 }
-                                </style>
-                                 <tr>
-                                    <th>Positon</th>
-                                    <th>Author</th>
-                                    <th>Opened Issues</th>
-                                </tr>
-                                <tr ng-repeat = "x in vm.tableBestOI">
-                                    <td>{{ $index + 1 }}</td>
-                                    <td>{{ x.author }}</td>
-                                    <td>{{ x.issues }}</td>
-                                </tr>
+                            </style>
+                            <tr>
+                                <th>Positon</th>
+                                <th>Author</th>
+                                <th>Opened Issues</th>
+                            </tr>
+                            <tr ng-repeat = "x in vm.tableBestOI">
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ x.author }}</td>
+                                <td>{{ x.issues }}</td>
+                            </tr>
                         </table>
                     </div>
-                    <div flex>
-                        <div layout="column" layout-align="center center">
-                            <h3>Closed Issues Podium</h3>
-                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChartCI" chart-series="vm.seriesBarChartCI" chart-labels="vm.labelsChartCI" chart-options="vm.BarChart.options", chart-colors="vm.BarChart.colors"></canvas>
-                        </div>
-                        <table>
-                                <style>
-                                    table, th , td {
-                                        border: 1px solid grey;
-                                        border-collapse: collapse;
-                                        padding: 5px;
-                                    }
-                                    table tr:nth-child(odd) {
-                                        background-color: #f2f2f2;
-                                    }
-                                    table tr:nth-child(even) {
-                                        background-color: #ffffff;
-                                    }
-                                    </style>
-                                     <tr>
-                                        <th>Positon</th>
-                                        <th>Author</th>
-                                        <th>Closed Issues</th>
-                                    </tr>
-                                    <tr ng-repeat = "x in vm.tableBestCI">
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ x.author }}</td>
-                                        <td>{{ x.issues }}</td>
-                                    </tr>
-                            </table>
-                    </div>
-          <!--  <div flex>
-                        <div layout="column" class="text-center">
-                            Rapport
-                            <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChartI" chart-series="vm.seriesBarChartI" chart-labels="vm.labelsChartI" chart-options="vm.BarChart.options", chart-colors="vm.BarChart.colors">
-                            </canvas>
-                        </div>
-                    </div>
-                -->
                 </div>
+                <div flex>
+                    <div layout="column" layout-align="center center">
+                        <h3>Closed Issues Podium</h3>
+                        <canvas id="bar" class="chart chart-bar" chart-data="vm.dataBarChartCI" chart-series="vm.seriesBarChartCI" chart-labels="vm.labelsChartCI" chart-options="vm.BarChart.options", chart-colors="vm.BarChart.colors"></canvas>
+                    </div>
+                    <table>
+                        <style>
+                            table, th , td {
+                                border: 1px solid grey;
+                                border-collapse: collapse;
+                                padding: 5px;
+                            }
+                            table tr:nth-child(odd) {
+                                background-color: #f2f2f2;
+                            }
+                            table tr:nth-child(even) {
+                                background-color: #ffffff;
+                            }
+                        </style>
+                        <tr>
+                            <th>Positon</th>
+                            <th>Author</th>
+                            <th>Closed Issues</th>
+                        </tr>
+                        <tr ng-repeat = "x in vm.tableBestCI">
+                            <td>{{ $index + 1 }}</td>
+                            <td>{{ x.author }}</td>
+                            <td>{{ x.issues }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
         </md-card-content>
     </md-card>
 </div>
