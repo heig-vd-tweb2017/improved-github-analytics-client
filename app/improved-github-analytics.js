@@ -1,4 +1,4 @@
-(function() {
+(function () {
 	'use strict';
 
 	/**
@@ -9,7 +9,6 @@
 	*
 	* Main module of the application.
 	*/
-
 	angular.module('improved-github-analytics', [
 		'ngResource',
 		'ngAria',
@@ -28,7 +27,6 @@
 	function setupSocketIO(socketio, $rootScope) {
 		console.log("setup socket io factory");
 		console.log(socketio);
-		socketio.init();	
-	};
-
+		socketio.init();
+	}
 })();
