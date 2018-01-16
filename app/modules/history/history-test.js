@@ -13,7 +13,7 @@
 		var controller = null, $scope = null;
 
 		beforeEach(function () {
-			module('ang-modular');
+			module('improved-github-analytics');
 		});
 
 		beforeEach(inject(function ($controller, $rootScope) {

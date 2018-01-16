@@ -10,7 +10,7 @@
 	* Main module of the application.
 	*/
 
-	angular.module('ang-modular', [
+	angular.module('improved-github-analytics', [
 		'ngResource',
 		'ngAria',
 		'ui.bootstrap',

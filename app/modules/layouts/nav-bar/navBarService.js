@@ -10,7 +10,7 @@
 	 */
 
   	angular
-		.module('ang-modular')
+		.module('improved-github-analytics')
 		.factory('MenuService', Menu);
 		// Inject your dependencies as .$inject = ['$http', 'someSevide'];
 		// function Name ($http, someSevide) {...}

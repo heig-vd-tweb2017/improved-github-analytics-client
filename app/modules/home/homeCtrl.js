@@ -9,7 +9,7 @@
 	*/
 
   angular
-    .module('ang-modular')
+    .module('improved-github-analytics')
     .controller('HomeCtrl', Home);
 
   Home.$inject = ['socketio', '$scope', '$window', 'historyService'];

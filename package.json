@@ -1,8 +1,8 @@
 {
-  "name": "ang-modular",
-  "description": "Modular AngularJS with Angm-generator",
+  "name": "improved-github-analytics",
+  "description": "Improved GitHub Analytics - Analyze repositories to get different kind of statistics",
   "version": "0.0.1",
-  "author": "Angmodular",
+  "author": "Ludovic Delafontaine & Michela Zucca",
   "engines": {
     "node": "0.10.x",
     "npm": "1.4.x"

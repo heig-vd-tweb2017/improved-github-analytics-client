@@ -5,7 +5,7 @@
 	* # HomeRoute
 	* Route of the app
 	*/
-angular.module('ang-modular')
+angular.module('improved-github-analytics')
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
 

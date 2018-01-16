@@ -9,7 +9,7 @@
 	* Controller of the app
 	*/
 	angular
-		.module('ang-modular')
+		.module('improved-github-analytics')
 		.controller('SidenavCtrl', SidenavCtrl)
 		.controller('SettingsCtrl', SettingsCtrl);
 

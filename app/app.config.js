@@ -8,10 +8,8 @@
 	 * # Config and run block
 	 * Configutation of the app
 	 */
-
-
 	angular
-		.module('ang-modular')
+		.module('improved-github-analytics')
 		.config(configure)
 		.run(runBlock);
 

@@ -9,7 +9,7 @@
 	*/
 
   	angular
-    .module('ang-modular')
+    .module('improved-github-analytics')
     .controller('historyCtrl', History);
 
   History.$inject = ['socketio', '$scope', '$window', 'historyService'];
