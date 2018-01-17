@@ -1,6 +1,6 @@
 {
   "generator-angm": {
-    "appName": "ang-modular",
+    "appName": "improved-github-analytics",
     "angularCookies": true,
     "angularAnimate": true,
     "angularSanitize": true,

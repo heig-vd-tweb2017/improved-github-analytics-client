@@ -14,3 +14,4 @@ module.exports = {
         "angular": 1
     }
 };
+

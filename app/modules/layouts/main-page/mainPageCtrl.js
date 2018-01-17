@@ -10,7 +10,7 @@
 	*/
 
 	angular
-		.module('ang-modular')
+		.module('improved-github-analytics')
 		.controller('LayoutCtrl', Layout);
 
 	Layout.$inject = ['$mdSidenav', '$cookies', '$state', '$mdToast', '$mdDialog'];

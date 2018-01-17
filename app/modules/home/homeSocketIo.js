@@ -1,8 +1,8 @@
 (function () {
   'use strict';
-  /* angular.module('ang-modular')
+  /* angular.module('improved-github-analytics')
       .factory('mySocket', mySocket); */
-  angular.module('ang-modular').factory('socketio', socketFactory);
+  angular.module('improved-github-analytics').factory('socketio', socketFactory);
 
   socketFactory.$inject = ['$rootScope', '$window'];
   function socketFactory($rootScope, $window) {

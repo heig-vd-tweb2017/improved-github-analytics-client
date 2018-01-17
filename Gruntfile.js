@@ -115,8 +115,8 @@ module.exports = function (grunt) {
         files: {
           'index.html': [
             'bower.json',
-            'app/app.js',
-            'app/app.config.js',
+            'app/improved-github-analytics.js',
+            'app/improved-github-analytics.config.js',
             'src/bower_components/socket.io-client/dist/socket.io.js',
             'src/bower_components/angular-socket-io/socket.js',
             'app/**/*Module.js',

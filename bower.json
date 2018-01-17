@@ -1,6 +1,6 @@
 {
-  "name": "ang-modular",
-  "description": "Modular AngularJS with Angm-generator",
+  "name": "improved-github-analytics",
+  "description": "Improved GitHub Analytics - Analyze repositories to get different kind of statistics",
   "version": "0.0.1",
   "install": {
     "path": {

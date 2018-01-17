@@ -9,7 +9,7 @@
 	 */
 
   	angular
-    .module('ang-modular')
+    .module('improved-github-analytics')
     .factory('historyService', History);
   // Inject your dependencies as .$inject = ['$http', 'someSevide'];
   // function Name ($http, someSevide) {...}

@@ -8,7 +8,7 @@
 	* Service of the app
 	*/
 
-  angular.module('ang-modular')
+  angular.module('improved-github-analytics')
     .factory('homeService', homeService);
 
   homeService.$inject = ['$http', '$rootScope', '$window'];

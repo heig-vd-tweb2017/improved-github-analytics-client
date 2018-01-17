@@ -8,10 +8,8 @@
 	 * # Config and run block
 	 * Configutation of the app
 	 */
-
-
 	angular
-		.module('ang-modular')
+		.module('improved-github-analytics')
 		.config(configure)
 		.run(runBlock);
 
@@ -24,10 +22,8 @@
 		// This is required for Browser Sync to work poperly
 		$httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-		
 		$urlRouterProvider
 			.otherwise('/dashboard');
-		
 	}
 
 	runBlock.$inject = ['$rootScope'];
@@ -37,6 +33,4 @@
 
 		console.log('AngularJS run() function...');
 	}
-
-
 })();
