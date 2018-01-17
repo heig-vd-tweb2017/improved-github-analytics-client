@@ -1,9 +1,17 @@
 module.exports = {
     "extends": [
         "airbnb-base",
-        "plugin:angular/johnpapa"
+        "angular"
     ],
-    "env" : {
+    "env": {
+        "browser": true,
         "mocha": true,
+    },
+    "globals": {
+        "angular": true,
+    },
+    "settings": {
+        "angular": 1
     }
 };
+
