@@ -1,0 +1,66 @@
+<div class="md-padding" flex layout-sm="column">
+    <md-card>
+        <md-card-content>
+            <h1 class="margin-top-50">Search History</h1>
+            <h2>{{vm.repo}}</h2>
+            <ul>
+                <li class=" text-left" ng-repeat="item in vm.history">
+                    <p><ng-md-icon icon="send"></ng-md-icon> Date of the search : {{item.date | date:'d MMM yyyy h:mm a'}}   <br>
+                    Filter : Search period {{item.age}} from {{item.end | date:'d.MMM.yyyy'}} to {{item.start | date:'d.MMM.yyyy'}}</p>
+            
+            <div layout="row">
+                <div flex>
+                <table>
+                    <style>
+                        table, th , td {
+                            border: 1px solid grey;
+                            border-collapse: collapse;
+                            padding: 5px;
+                        }
+                        table tr:nth-child(odd) {
+                            background-color: #f2f2f2;
+                        }
+                        table tr:nth-child(even) {
+                            background-color: #ffffff;
+                        }
+                    </style>
+                    <tr>
+                        <th>Author</th>
+                        <th>Opened Issues</th>
+                    </tr>
+                    <tr ng-repeat="y in item.bestOpenedIssuesAuthors">
+                        <td>{{ y.author }}</td>
+                        <td>{{ y.openedIssues }}</td>
+                    </tr>
+                </table>   
+                </div>
+                <div flex>
+                    <table>
+                        <style>
+                            table, th , td {
+                                border: 1px solid grey;
+                                border-collapse: collapse;
+                                padding: 5px;
+                            }
+                            table tr:nth-child(odd) {
+                                background-color: #f2f2f2;
+                            }
+                            table tr:nth-child(even) {
+                                background-color: #ffffff;
+                            }
+                        </style> 
+                        <tr>
+                            <th>Author</th>
+                            <th>Closed Issues</th>
+                        </tr>
+                        <tr ng-repeat = "x in item.bestClosedIssuesAuthors">
+                            <td>{{ x.author }}</td>
+                            <td>{{ x.closedIssues }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </li>
+        </ul>
+        </md-card-content>
+    </md-card>
+</div>
