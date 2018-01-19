@@ -22,7 +22,7 @@
 		'analytics',
 		'api',
 	]).factory('mySocket', function (socketFactory) {
-	  	var myIoSocket = io.connect('http://improved-github-analytics-srv.herokuapp.com/');
+	  	var myIoSocket = io.connect('https://improved-github-analytics-srv.herokuapp.com/');
 	  
 	  	var mySocket = socketFactory({
 			ioSocket: myIoSocket
