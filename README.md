@@ -9,18 +9,18 @@ This is an improved version of the original Github Analytics project you can fin
 
 Client side:
 
-* Use of [Yeoman](http://yeoman.io) to generate the folders structure
-* Use of [Grunt](https://gruntjs.com/) to pack and deploy the application
-* Use of [socket.io](https://socket.io/) to emit new results to the client
-* Use of [AngularJS](https://angularjs.org/) for the frontend
+* Use of [Yeoman](http://yeoman.io) to generate the folders structure.
+* Use of [Grunt](https://gruntjs.com/) to pack and deploy the application.
+* Use of [socket.io](https://socket.io/) to emit new results to the client.
+* Use of [AngularJS](https://angularjs.org/) for the frontend.
 
 Server side:
 
-* Use of [Javascript Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
-* Use of [GraphQL](http://graphql.org/) with the [GitHub API v4](https://developer.github.com/v4/)
-* Use of [socket.io](https://socket.io/) to emit new results to the client
-* Use of [MongoDB](https://www.mongodb.com/) to save some results to the database for future usages
-* Use of [Docker Compose](https://docs.docker.com/compose/) to test the infrastructure locally
+* Use of [Javascript Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise).
+* Use of [GraphQL](http://graphql.org/) with the [GitHub API v4](https://developer.github.com/v4/).
+* Use of [socket.io](https://socket.io/) to emit new results to the client.
+* Use of [MongoDB](https://www.mongodb.com/) to save some results to the database for future usages.
+* Use of [Docker Compose](https://docs.docker.com/compose/) to test the infrastructure locally.
 
 More details can be found in the `How is it` section.
 
@@ -57,6 +57,9 @@ Client side:
 * [socket.io](https://socket.io/) to receive and send from/to the client datas in real time.
 * [Moment.js](https://momentjs.com/) to manipulate times in JavaScript.
 * [Chart.js](http://www.chartjs.org/) to generate the charts.
+* [Yeoman](http://yeoman.io) to generate the folders structure.
+* [Grunt](https://gruntjs.com/) to pack and deploy the application.
+* [AngularJS](https://angularjs.org/) for the frontend.
 
 Server side:
 
@@ -74,12 +77,8 @@ Server side:
 ## Live testing
 You can test the entire application [here](https://heig-vd-tweb2017.github.io/improved-github-analytics-client/). Feel free to test it !
 
-or
-
-If you want to test the server, you can go [here](http://improved-github-analytics-srv.herokuapp.com). Have a look at the source code as well as the console output to watch the results.
-
 ## Client's aspects
-For client's aspects, we encourage you to visit the associated repository [here](https://github.com/heig-vd-tweb2017/improved-github-analytics-client).
+The client allows the users to query the server using a web interface. He can select the filters he wants to apply for the query that will be sent to our server using socket.io. The server will query GitHub's API and return the results to the client using different socket.io's messages. The data are automatically loaded and the graphics and tables are automatically updated.
 
 ## Server's aspects
 The server is in charge of retrieving the information from the desired GitHub repository. The server side is broken down in three big parts, the agent, the database and the server:
@@ -89,65 +88,25 @@ The server is in charge of retrieving the information from the desired GitHub re
 * The role of the server: intermediary between the agent, the database and the client. It receives the client's request and uses the agent to retrieve the data to be sent back to the client.
 
 ## Install, build and tests
-You can install all the Node.js dependencies by using the following command in the cloned directory:
+You can install all the dependencies by using the following command in the cloned directory:
 
 ```
 npm install
+bower install
+brower-installer
 ```
 
-You will have the change the variables of the `test/local-development.json` to match your [generated token on GitHub for authentification](https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql) as well as the repository's information you want to use for testing:
+Then, you can run the application with
 
 ```
-{
-    "port": 5151,
-    "token": "CHANGE_THIS",
-    "mongodbUri": "mongodb://0.0.0.0:27017/improved-github-analytics",
-    "owner": "CHANGE_THIS",
-    "repo": "CHANGE_THIS"
-}
+grunt dev
 ```
 
-You can then use the following commands to build and test the application after starting all the containers. Look at the `Deployment part`.
-
-```
-npm run lint  # Runs the ESLint linter for code quality control
-npm run test  # Runs the Mocha framework for testing
-npm run build # Runs the 'lint' and 'test' scripts
-```
+Note: Currently, `grunt build` doesn't work as expected due to a faulty `Gruntfile.js`...
 
 ## Deployment
 
 ### Local deployment
-To test the application locally, you will need [Docker Compose](https://docs.docker.com/compose/). After that, you have to edit the file `docker-compose.yml` and edit the environment variable `TOKEN` corresponding to your [generated token on GitHub for authentification](https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql).
+To test the application locally, just run `grunt dev`.
 
-```
-[...]
-app:
-    image: node:latest
-    container_name: 'app'
-    environment:
-      - PORT=5050
-      - TOKEN=CHANGE_THIS
-      - MONGO_DB_HOSTNAME=mongodb:27017
-[...]
-```
-
-Then you need to execute the following commands to launch the environment locally:
-```
-cd 'The local cloned directory of the project'
-sudo dockerd # Launch the Docker daemon
-sudo docker-compose up # Launch Docker Compose
-```
-
-This will launch the server locally. You might need to look at the client's `Local deployment` part for a fully working environment.
-
-### Online deployment (Heroku)
-To deploy the application online, on Heroku for example, you need to set the following environment variables:
-
-* `PORT`: The port to use for the application
-* `TOKEN`: The [generated token on GitHub for authentification](https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql)
-
-Then you need to launch the application on Heroku. You can find information to deploy an application on Heroku [here](https://devcenter.heroku.com/articles/getting-started-with-nodejs).
-
-### More informations
-You can find more information on GitHub authentication [here](https://developer.github.com/v4/guides/forming-calls/#authenticating-with-graphql).
+A web server will be created, a webpage opened and you will be able to test the application locally.
