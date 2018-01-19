@@ -148,8 +148,6 @@
             }, function(newResults) {
                 if (newResults != null) {
 
-                    console.log(newResults);
-
                     const { bestOpenedIssuesAuthors, bestClosedIssuesAuthors } = newResults;
 
                     const process = {

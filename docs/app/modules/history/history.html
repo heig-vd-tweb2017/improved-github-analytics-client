@@ -54,7 +54,7 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="bestOpenedIssuesAuthor in history.bestOpenedIssuesAuthors">
-                                                <td><a ng-href="{{ author.profilUrl }}">{{ author.author }}</a></td>
+                                                <td><a ng-href="{{ bestOpenedIssuesAuthor.profilUrl }}">{{ bestOpenedIssuesAuthor.author }}</a></td>
                                                 <td>{{ bestOpenedIssuesAuthor.openedIssues }}</td>
                                             </tr>
                                         </tbody>
@@ -75,7 +75,7 @@
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="bestClosedIssuesAuthor in history.bestClosedIssuesAuthors">
-                                                <td><a ng-href="{{ author.profilUrl }}">{{ author.author }}</a></td>
+                                                <td><a ng-href="{{ bestClosedIssuesAuthor.profilUrl }}">{{ bestClosedIssuesAuthors.author }}</a></td>
                                                 <td>{{ bestClosedIssuesAuthor.closedIssues }}</td>
                                             </tr>
                                         </tbody>
