@@ -91,15 +91,31 @@
 			};
 
             mySocket.on('number-of-issues-by-authors-results', function (results) {
-				ApiService.numberOfIssuesByAuthorsResults = results.data;
+				console.log(results);
+				if (results.error != null) {
+					$scope.filters.urlError = true;
+				} else {
+					$scope.filters.urlError = false;
+					ApiService.numberOfIssuesByAuthorsResults = results.data;
+				}
 			});
 			
 			mySocket.on('number-of-issues-by-authors-old-results', function (results) {
-                ApiService.numberOfIssuesByAuthorsOldResults = results.data;
+				if (results.error != null) {
+					$scope.filters.urlError = true;
+				} else {
+					$scope.filters.urlError = false;
+					ApiService.numberOfIssuesByAuthorsOldResults = results.data;
+				}
             });
 
             mySocket.on('number-of-issues-by-grouping-results', function (results) {
-				ApiService.numberOfIssuesByGroupingResults = results.data;
+				if (results.error != null) {
+					$scope.filters.urlError = true;
+				} else {
+					$scope.filters.urlError = false;
+					ApiService.numberOfIssuesByGroupingResults = results.data;
+				}
             });
 		}
 })();
