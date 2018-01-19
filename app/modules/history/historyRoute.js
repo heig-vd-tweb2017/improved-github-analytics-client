@@ -1,4 +1,5 @@
 'use strict';
+
 /**
  * @ngdoc function
  * @name app.route:historyRoute
@@ -7,13 +8,15 @@
  * Route of the app
  */
 
-angular.module('improved-github-analytics')
-  .config(['$stateProvider', function ($stateProvider) {
-    $stateProvider
-      .state('home.history', {
-        url: '/history',
-        templateUrl: 'app/modules/history/history.html',
-        controller: 'historyCtrl',
-        controllerAs: 'vm',
-      });
-  }]);
+angular.module('history')
+    .config(['$stateProvider', function ($stateProvider) {
+        
+        $stateProvider
+            .state('history', {
+                url:'/history',
+                templateUrl: 'app/modules/history/history.html',
+                controller: 'HistoryCtrl',
+                controllerAs: 'vm'
+            });
+        
+    }]);

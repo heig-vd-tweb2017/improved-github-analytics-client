@@ -1,0 +1,221 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Filters
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form ng-controller="ApiCtrl" role="form">
+                                {{ apiService.numberOfIssuesByAuthorsResults }}
+                                <div class="form-group" ng-class="{'has-error': filters.urlError}">
+                                    <label class="control-label" for="github-repository">GitHub repository to analyze</label>
+                                    <input ng-model="filters.gitHubRepository" id="github-repository" class="form-control" placeholder="Enter a GitHub repository URL i.e. https://github.com/{owner}/{repo}" type="url">
+                                </div>
+                                <div class="form-group">
+                                    <label>Age of the data to retreive</label>
+                                    <select class="form-control"
+                                        ng-model="filters.dataAge.selectedOption"
+                                        ng-options="option as option.name for option in filters.dataAge.availableOptions track by option.id"
+                                        ng-change="update()"
+                                    >
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Grouping of the data</label>
+                                    <select class="form-control"
+                                        ng-model="filters.dataGrouping.selectedOption"
+                                        ng-options="option as option.name for option in filters.dataGrouping.availableOptions track by option.id"
+                                        ng-change="update()"
+                                    >
+                                    </select>
+                                </div>
+                                <button ng-click="query()" class="btn btn-block btn-primary">Analyze repository</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Opened issues
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-5">
+                        <p>
+                            This graph displays the number of opened issues in time.
+                            If the line is flat, less issues have been opened.
+                            If the line is growing, more issues have been opened.
+                        </p>
+                    </div>
+                    <div class="col-lg-7">
+                        <canvas id="opened-issues" class="chart chart-line" chart-data="openedIssuesChart.data" chart-labels="openedIssuesChart.labels" chart-series="openedIssuesChart.series" chart-options="openedIssuesChart.options" chart-dataset-override="openedIssuesChart.datasetOverride">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Closed issues
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-5">
+                        <p>
+                            This graph displays the number of closed issues in time.
+                            If the line is flat, less issues have been closed.
+                            If the line is growing, more issues have been closed.
+                        </p>
+                    </div>
+                    <div class="col-lg-7">
+                        <canvas id="closed-issues" class="chart chart-line" chart-data="closedIssuesChart.data" chart-labels="closedIssuesChart.labels" chart-series="closedIssuesChart.series" chart-options="closedIssuesChart.options" chart-dataset-override="closedIssuesChart.datasetOverride">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Remaining number of opened issues
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-5">
+                        <p>
+                            This graph displays the remaining number of opened issues.
+                            Try to close them all !
+                        </p>
+                    </div>
+                    <div class="col-lg-7">
+                        <canvas id="remaining-opened-issues" class="chart chart-line" chart-data="remainingOpenedIssuesChart.data" chart-labels="remainingOpenedIssuesChart.labels" chart-series="remainingOpenedIssuesChart.series" chart-options="remainingOpenedIssuesChart.options" chart-dataset-override="remainingOpenedIssuesChart.datasetOverride">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Difference between opened and closed issues
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-5">
+                        <p>
+                            This graph displays the difference between opened and closed issues.
+                            If the value is positive, it indicates that the number of opened issues is greater than the number of closed issues.
+                            If the value is negative, it indicates that the number of closed issues is greater than the number of open issues.
+                            If the value is 0, or near 0, the amount of opened and closed issues are very close.
+                            The more the line is flat, the greater is it !
+                        </p>
+                        <p>
+                            It has limitation though: the line will be flat as well if the repository is not active anymore, it can be a good thing but a bad thing as well...
+                        </p>
+                    </div>
+                    <div class="col-lg-7">
+                        <canvas id="difference-between-opened-and-closed-issues" class="chart chart-line" chart-data="differenceOpenedClosedIssuesChart.data" chart-labels="differenceOpenedClosedIssuesChart.labels" chart-series="differenceOpenedClosedIssuesChart.series" chart-options="differenceOpenedClosedIssuesChart.options" chart-dataset-override="differenceOpenedClosedIssuesChart.datasetOverride">
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Best contributors - Opened issues
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-7">
+                        <canvas id="best-contributors-opened-issues" class="chart chart-bar" chart-data="bestContribOpenedIssuesChart.data" chart-labels="bestContribOpenedIssuesChart.labels" chart-series="bestContribOpenedIssuesChart.series" chart-options="bestContribOpenedIssuesChart.options" chart-dataset-override="bestContribOpenedIssuesChart.datasetOverride">
+                        </canvas>
+                    </div>
+                    <div class="col-lg-5">
+                        <p>
+                            This table displays the best opened issues contributors.
+                            This will only display the 15% best contributors to avoid competition.
+                            Help your rival and climb the podium together !
+                        </p>
+                        <div ng-show="bestContribOpenedIssues">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="2">Best opened issues authors</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 50%;">Author</th>
+                                            <th style="width: 50%;"># of opened issues</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="author in bestContribOpenedIssues">
+                                            <td><a ng-href="{{ author.profilUrl }}">{{ author.author }}</a></td>
+                                            <td>{{ author.openedIssues }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Best contributors - Closed issues
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-7">
+                        <canvas id="best-contributors-closed-issues" class="chart chart-bar" chart-data="bestContribClosedIssuesChart.data" chart-labels="bestContribClosedIssuesChart.labels" chart-series="bestContribClosedIssuesChart.series" chart-options="bestContribClosedIssuesChart.options" chart-dataset-override="bestContribClosedIssuesChart.datasetOverride">
+                        </canvas>
+                    </div>
+                    <div class="col-lg-5">
+                        <p>
+                            This table displays the best closed issues contributors.
+                            This will only display the 15% best contributors to avoid competition.
+                            Help your rival and climb the podium together !
+                        </p>
+                        <div ng-show="bestContribClosedIssues">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center" colspan="2">Best closed issues authors</th>
+                                        </tr>
+                                        <tr>
+                                            <th style="width: 50%;">Author</th>
+                                            <th style="width: 50%;"># of closed issues</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="author in bestContribClosedIssues">
+                                            <td><a ng-href="{{ author.profilUrl }}">{{ author.author }}</a></td>
+                                            <td>{{ author.closedIssues }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

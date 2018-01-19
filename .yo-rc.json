@@ -1,20 +1,33 @@
 {
   "generator-angm": {
     "appName": "improved-github-analytics",
-    "angularCookies": true,
-    "angularAnimate": true,
-    "angularSanitize": true,
+    "angularCookies": false,
+    "angularAnimate": false,
+    "angularSanitize": false,
     "angularBootstrap": true,
-    "angularMaterial": true,
     "modules": [
       {
         "name": "history"
+      },
+      {
+        "name": "analytics"
+      },
+      {
+        "name": "api"
       }
     ],
     "menu": [
       {
         "link": "history",
         "title": "History"
+      },
+      {
+        "link": "analytics",
+        "title": "Analytics"
+      },
+      {
+        "link": "api",
+        "title": "Api"
       }
     ]
   }

@@ -1,378 +1,120 @@
 angular.module('improved-github-analytics').run(['$templateCache', function($templateCache) {
   'use strict';
 
-  $templateCache.put('app/modules/history/history.html',
-    "<div class=\"md-padding\" flex layout-sm=\"column\">\n" +
-    "    <md-card>\n" +
-    "        <md-card-content>\n" +
-    "            <h1 class=\"margin-top-50\">Search History</h1>\n" +
-    "            <h2>{{vm.repo}}</h2>\n" +
-    "            <ul>\n" +
-    "                <li class=\" text-left\" ng-repeat=\"item in vm.history\">\n" +
-    "                    <p><ng-md-icon icon=\"send\"></ng-md-icon> Date of the search : {{item.date | date:'d MMM yyyy h:mm a'}}   <br>\n" +
-    "                    Filter : Search period {{item.age}} from {{item.end | date:'d.MMM.yyyy'}} to {{item.start | date:'d.MMM.yyyy'}}</p>\n" +
-    "            \n" +
-    "            <div layout=\"row\">\n" +
-    "                <div flex>\n" +
-    "                <table>\n" +
-    "                    <style>\n" +
-    "                        table, th , td {\n" +
-    "                            border: 1px solid grey;\n" +
-    "                            border-collapse: collapse;\n" +
-    "                            padding: 5px;\n" +
-    "                        }\n" +
-    "                        table tr:nth-child(odd) {\n" +
-    "                            background-color: #f2f2f2;\n" +
-    "                        }\n" +
-    "                        table tr:nth-child(even) {\n" +
-    "                            background-color: #ffffff;\n" +
-    "                        }\n" +
-    "                    </style>\n" +
-    "                    <tr>\n" +
-    "                        <th>Author</th>\n" +
-    "                        <th>Opened Issues</th>\n" +
-    "                    </tr>\n" +
-    "                    <tr ng-repeat=\"y in item.bestOpenedIssuesAuthors\">\n" +
-    "                        <td>{{ y.author }}</td>\n" +
-    "                        <td>{{ y.openedIssues }}</td>\n" +
-    "                    </tr>\n" +
-    "                </table>   \n" +
-    "                </div>\n" +
-    "                <div flex>\n" +
-    "                    <table>\n" +
-    "                        <style>\n" +
-    "                            table, th , td {\n" +
-    "                                border: 1px solid grey;\n" +
-    "                                border-collapse: collapse;\n" +
-    "                                padding: 5px;\n" +
-    "                            }\n" +
-    "                            table tr:nth-child(odd) {\n" +
-    "                                background-color: #f2f2f2;\n" +
-    "                            }\n" +
-    "                            table tr:nth-child(even) {\n" +
-    "                                background-color: #ffffff;\n" +
-    "                            }\n" +
-    "                        </style> \n" +
-    "                        <tr>\n" +
-    "                            <th>Author</th>\n" +
-    "                            <th>Closed Issues</th>\n" +
-    "                        </tr>\n" +
-    "                        <tr ng-repeat = \"x in item.bestClosedIssuesAuthors\">\n" +
-    "                            <td>{{ x.author }}</td>\n" +
-    "                            <td>{{ x.closedIssues }}</td>\n" +
-    "                        </tr>\n" +
-    "                    </table>\n" +
-    "                </div>\n" +
-    "            </li>\n" +
-    "        </ul>\n" +
-    "        </md-card-content>\n" +
-    "    </md-card>\n" +
+  $templateCache.put('app/modules/analytics/analytics.html',
+    "<div class=\"container\">\n" +
+    "    <br>\n" +
+    "    <div class=\"text-center\">\n" +
+    "        <h1>{{ vm.title }}</h1>\n" +
+    "    </div>\n" +
+    "    <div class=\"well text-left\">\n" +
+    "        <div class=\"form-group\">\n" +
+    "            <input id=\"search-input\" class=\"form-control\" placeholder=\"Enter a GitHub repository URL i.e. https://github.com/{owner}/{repo}\" type=\"text\">\n" +
+    "        </div>\n" +
+    "        <p><a ui-sref=\"analytics\" class=\"btn btn-block btn-primary\" role=\"button\">Analyze repository</a></p>\n" +
+    "    </div>\n" +
     "</div>\n"
   );
 
 
-  $templateCache.put('app/modules/home/dashboard.html',
-    "<div class=\"md-padding\" flex layout-sm=\"column\">\n" +
-    "    <md-card class=\"text-left\">\n" +
-    "        <md-card-content>\n" +
-    "            <h1>Filters</h1>\n" +
-    "            <form name=\"filters\">\n" +
-    "                <div layout=\"row\" layout-padding>\n" +
-    "                    <div flex layout=\"column\">\n" +
-    "                        <input id=\"repo\" name=\"repo\" type=\"url\" placeholder=\"Enter a GitHub repository URL i.e. https://github.com/{owner}/{repo}\" ng-model=\"vm.form.repoGitHub.selectedRepo\" ng-required=\"true\">\n" +
-    "                        <span class=\"error\" ng-show=\"filters.repo.$error.required\">\n" +
-    "                            Error : url required !\n" +
-    "                        </span>\n" +
-    "                        <span class=\"error\" ng-show=\"filters.repo.$error.url\">\n" +
-    "                            Error : Not valid url !\n" +
-    "                        </span>\n" +
-    "                        <span class=\"error\" ng-show=\"vm.error\">\n" +
-    "                            Error : {{vm.error}}\n" +
-    "                        </span>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div layout=\"column\" layout-padding>\n" +
-    "                    <div flex>\n" +
-    "                        <label>Search period</label><br>\n" +
-    "                        <select name=\"period\" id=\"period\"\n" +
-    "                            ng-options=\"option.name for option in vm.form.period.availableOptions track by option.id\"\n" +
-    "                            ng-model=\"vm.form.period.selectedOption\">                \n" +
-    "                        </select>           \n" +
-    "                    </div>                \n" +
-    "                    <div flex >\n" +
-    "                        <label>Grouping of data</label><br>\n" +
-    "                        <select name=\"groupment\" id=\"groupment\"\n" +
-    "                            ng-options=\"option.name for option in vm.form.groupment.availableOptions track by option.id\"\n" +
-    "                            ng-model=\"vm.form.groupment.selectedOption\">\n" +
-    "                        </select>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div layout=\"row\" layout-margin>\n" +
-    "                    <button ng-click=\"vm.form.apply()\">Search</button>\n" +
-    "                </div>\n" +
-    "            </form>\n" +
-    "\n" +
-    "            <md-divider class=\"margin-top-20\" ></md-divider>\n" +
-    "            <!-- Graphiques lineChart-->\n" +
-    "            <div layout=\"column\" layout-align=\"center center\">\n" +
-    "                <h2>Graphics</h2>\n" +
-    "                <p>The health of your project depends on closed issues but also open issues. The open issues show that your project is still very much alive, and that improvements are coming. And closed issues show that your project solves problems or requests received.</p>\n" +
-    "                <p> A healthy project is balanced by the number of open and closed issues.</p>\n" +
-    "            </div>\n" +
-    "            <div layout=\"row\" layout-xs=\"column\" layout-align=\"center center\">\n" +
-    "                <div flex>\n" +
-    "                    <canvas id=\"line\" class=\"chart chart-line\" chart-data=\"vm.dataLineChartOI\" chart-labels=\"vm.lineChart.labels\" chart-series=\"vm.lineChart.series\" chart-options=\"vm.lineChart.options\" chart-dataset-override=\"vm.lineChart.datasetOverride\"  chart-click=\"vm.lineChart.onClick\" chart-colors=\"vm.lineChart.colors\">\n" +
-    "                    </canvas>\n" +
-    "                </div>\n" +
-    "                <div flex=40>     \n" +
-    "                    <h3>Opened Issues</h3>\n" +
-    "                    <p>This chart shows the progression of open issues on time.</p>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div layout=\"row\" layout-xs=\"column\" layout-padding  layout-align=\"center center\">\n" +
-    "                <div flex=40>     \n" +
-    "                    <h3>Closed Issues</h3>\n" +
-    "                    <p>This chart shows the progression of closed issues on time.</p>    \n" +
-    "                </div>\n" +
-    "                <div flex>\n" +
-    "                    <canvas id=\"line2\"class=\"chart chart-line\" chart-data=\"vm.dataLineChartCI\" chart-labels=\"vm.lineChart.labels\" chart-series=\"vm.lineChart.series\" chart-options=\"vm.lineChart.options\" chart-dataset-override=\"vm.lineChart.datasetOverride\"  chart-click=\"vm.lineChart.onClick\" chart-colors=\"vm.lineChart.colors\">\n" +
-    "                    </canvas>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <div layout=\"row\" layout-xs=\"column\" layout-padding  layout-align=\"center center\">\n" +
-    "                <div flex>\n" +
-    "                    <canvas id=\"line3\" class=\"chart chart-line\" chart-data=\"vm.dataLineChartI\" chart-labels=\"vm.lineChart.labels\" chart-series=\"vm.lineChart.series\" chart-options=\"vm.lineChart.options\" chart-dataset-override=\"vm.lineChart.datasetOverride\"  chart-click=\"vm.lineChart.onClick\" chart-colors=\"vm.lineChart.colors\">\n" +
-    "                    </canvas>\n" +
-    "                </div>\n" +
-    "                <div flex=40>     \n" +
-    "                    <h3>Trend of Issues</h3>\n" +
-    "                    <p>This chart shows the evolution of issues over time.</p>\n" +
-    "                    <p>If the value is positive, this indicates that the number of open issues is greater than X by the number of closed issues.</p>\n" +
-    "                    <p>If the value is negative, this indicates that the number of closed issues is greater than X by the number of open issues..</p>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "            <!-- Graphiques barChart-->\n" +
-    "            <div layout=\"column\" layout-align=\"center center\">\n" +
-    "                <h2>Podium of hyperactive</h2>\n" +
-    "                <p>There is no competition. Opening or closing issues does not mean that you are the best of the team, but who does not want to climb a podium!</p>\n" +
-    "                <p>So \"tintintintintin\", rolling drums ....</p>\n" +
-    "            </div>\n" +
-    "            <div layout=\"row\" layout-xs=\"column\">\n" +
-    "                <div flex>\n" +
-    "                    <div layout=\"column\" layout-align=\"center center\">\n" +
-    "                        <h3>Opened Issues Podium</h3>\n" +
-    "                        <canvas id=\"bar\" class=\"chart chart-bar\" chart-data=\"vm.dataBarChartOI\" chart-series=\"vm.seriesBarChartOI\" chart-labels=\"vm.labelsChartOI\" chart-options=\"vm.BarChart.options\", chart-colors=\"vm.BarChart.colors\"></canvas>\n" +
-    "                        <table>\n" +
-    "                            <style>\n" +
-    "                                table, th , td {\n" +
-    "                                    border: 1px solid grey;\n" +
-    "                                    border-collapse: collapse;\n" +
-    "                                    padding: 5px;\n" +
-    "                                }\n" +
-    "                                table tr:nth-child(odd) {\n" +
-    "                                    background-color: #f2f2f2;\n" +
-    "                                }\n" +
-    "                                table tr:nth-child(even) {\n" +
-    "                                    background-color: #ffffff;\n" +
-    "                                }\n" +
-    "                            </style>\n" +
-    "                            <tr>\n" +
-    "                                <th>Positon</th>\n" +
-    "                                <th>Author</th>\n" +
-    "                                <th>Opened Issues</th>\n" +
-    "                            </tr>\n" +
-    "                            <tr ng-repeat = \"x in vm.tableBestOI\">\n" +
-    "                                <td>{{ $index + 1 }}</td>\n" +
-    "                                <td>{{ x.author }}</td>\n" +
-    "                                <td>{{ x.issues }}</td>\n" +
-    "                            </tr>\n" +
-    "                        </table>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "                <div flex>\n" +
-    "                    <div layout=\"column\" layout-align=\"center center\">\n" +
-    "                        <h3>Closed Issues Podium</h3>\n" +
-    "                        <canvas id=\"bar\" class=\"chart chart-bar\" chart-data=\"vm.dataBarChartCI\" chart-series=\"vm.seriesBarChartCI\" chart-labels=\"vm.labelsChartCI\" chart-options=\"vm.BarChart.options\", chart-colors=\"vm.BarChart.colors\"></canvas>\n" +
-    "                        <table>\n" +
-    "                            <style>\n" +
-    "                                table, th , td {\n" +
-    "                                    border: 1px solid grey;\n" +
-    "                                    border-collapse: collapse;\n" +
-    "                                    padding: 5px;\n" +
-    "                                }\n" +
-    "                                table tr:nth-child(odd) {\n" +
-    "                                    background-color: #f2f2f2;\n" +
-    "                                }\n" +
-    "                                table tr:nth-child(even) {\n" +
-    "                                    background-color: #ffffff;\n" +
-    "                                }\n" +
-    "                            </style>\n" +
-    "                            <tr>\n" +
-    "                                <th>Positon</th>\n" +
-    "                                <th>Author</th>\n" +
-    "                                <th>Closed Issues</th>\n" +
-    "                            </tr>\n" +
-    "                            <tr ng-repeat = \"x in vm.tableBestCI\">\n" +
-    "                                <td>{{ $index + 1 }}</td>\n" +
-    "                                <td>{{ x.author }}</td>\n" +
-    "                                <td>{{ x.issues }}</td>\n" +
-    "                            </tr>\n" +
-    "                        </table>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </md-card-content>\n" +
-    "    </md-card>\n" +
+  $templateCache.put('app/modules/history/history.html',
+    "<div class=\"container\">\n" +
+    "    <h1>Content from: history page</h1>\n" +
     "</div>\n"
   );
 
 
   $templateCache.put('app/modules/home/home.html',
-    "<md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\" md-is-locked-open=\"$mdMedia('gt-md')\">\n" +
-    "    <div ng-controller=\"SidenavCtrl as vm\" ng-cloak>\n" +
-    "        <md-toolbar class=\"md-tall md-hue-2\">\n" +
-    "            <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\n" +
-    "                <div layout=\"row\">\n" +
-    "                    <div flex=\"80\">\n" +
-    "                        <div>Improved GitHub Analytics</div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </md-toolbar>\n" +
-    "        <md-list>\n" +
-    "            <md-list-item ui-sref=\"home.dashboard\">\n" +
-    "                <div class=\"inset\">\n" +
-    "                    <ng-md-icon icon=\"apps\"></ng-md-icon>\n" +
-    "                </div>\n" +
-    "                <p> Dashboard </p>\n" +
-    "            </md-list-item>\n" +
-    "            <md-list-item ng-repeat=\"item in vm.menu\" ng-click=\"vm.navigateTo('home.' + item.link)\">\n" +
-    "                <div class=\"inset\" ng-show=\"item.icon\">\n" +
-    "                    <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n" +
-    "                </div>\n" +
-    "                <p > {{ item.name }}</p>\n" +
-    "            </md-list-item>\n" +
-    "            <md-divider></md-divider>\n" +
-    "        </md-list>\n" +
-    "    </div>\n" +
-    "</md-sidenav>\n" +
+    "<div class=\"container\">\n" +
+    "	<br>\n" +
+    "	<div class=\"text-center\">\n" +
+    "		<h1>{{ vm.title }}</h1>\n" +
+    "	</div>\n" +
+    "	<div class=\"well text-left\">\n" +
+    "		<h2>What is this</h2>\n" +
+    "		<p>This project proposes to analyze a GitHub repository, especially on issues management:</p>\n" +
+    "		<ul>\n" +
+    "			<li>Time analysis of opened issues.</li>\n" +
+    "			<li>Time analysis of closed issues.</li>\n" +
+    "			<li>Time analysis of the ratio between opened and closed issues.</li>\n" +
+    "			<li>Enhancement of the three most active users on opening issues.</li>\n" +
+    "			<li>Enhancement of the three most active users on closing issues.</li>\n" +
+    "			<li>Enhancement of the number of opened and closed issues.</li>\n" +
+    "		</ul>\n" +
+    "		<p>These aspects are represented through graphics and tables.</p>\n" +
+    "		<p>Some information about the users is deliberately hidden: We only show the 15% of the best users in the tables in parts to avoid any competition. The only objective is mutual help and encouragement.</p>\n" +
+    "	</div>\n" +
+    "	<div class=\"well text-left\">\n" +
+    "		<h2>Why is this</h2>\n" +
+    "		<p>We wanted to create this tool to encourage people to improve their product by the following points.</p>\n" +
+    "		<p>We think that issues are a good measure to the activity and the progress of a project:</p>\n" +
+    "		<ul>\n" +
+    "			<li>People who open issues want to see bug fixes and/or new features in the product they use.</li>\n" +
+    "			<li>People who close issues fixe bugs and/or add new features to the product they use.</li>\n" +
+    "		</ul>\n" +
+    "		<p>We think that the number of issues opened and the number of issues closed should be very similar. This proves the activity and continuous integration of the product as people want to see new features and people implement them.</p>\n" +
+    "	</div>\n" +
+    "	<div class=\"well text-left\">\n" +
+    "		<h2>How is this</h2>\n" +
+    "		<p>For this project, we used several librairies and technologies.</p>\n" +
+    "		<p>Client side:</p>\n" +
+    "		<ul>\n" +
+    "			<li><a ng-href=\"https://eslint.org/\">ESLint</a> for quality code control.</li>\n" +
+    "			<li><a ng-href=\"https://socket.io/\">socket.io</a> to receive and send from/to the client datas in real time.</li>\n" +
+    "			<li><a ng-href=\"https://momentjs.com/\">Moment.js</a> to manipulate times in JavaScript.</li>\n" +
+    "			<li><a ng-href=\"http://www.chartjs.org/\">Chart.js</a> to generate the charts.</li>\n" +
+    "		</ul>\n" +
+    "		<p>Server side:</p>\n" +
+    "		<ul>\n" +
+    "			<li><a ng-href=\"https://eslint.org/\">ESLint</a> for quality code control.</li>\n" +
+    "			<li><a ng-href=\"https://nodejs.org/\">Node.js</a> for the server runtime engine.</li>\n" +
+    "			<li><a ng-href=\"http://expressjs.com/\">Express</a> for the WEB server.</li>\n" +
+    "			<li><a ng-href=\"https://developer.github.com/v4/\">GitHub API</a> to get the data from GitHub.</li>\n" +
+    "			<li><a ng-href=\"https://www.npmjs.com/package/node-github-graphql\">Node-Github-GraphQL</a> to query the GitHub API v4 from Node.js.</li>\n" +
+    "			<li><a ng-href=\"https://socket.io/\">socket.io</a> to receive and send from/to the client datas in real time.</li>\n" +
+    "			<li><a ng-href=\"https://momentjs.com/\">Moment.js</a> to manipulate times in JavaScript.</li>\n" +
+    "			<li><a ng-href=\"https://mochajs.org/\">Mocha</a> for the unit tests.</li>\n" +
+    "			<li><a ng-href=\"http://chaijs.com/\">Chai</a> as an assertion library used with Mocha.</li>\n" +
+    "			<li><a ng-href=\"https://docs.docker.com/compose/\">Docker Compose</a> to deploy and test the application locally.</li>\n" +
+    "		</ul>\n" +
     "\n" +
-    "<div layout=\"column\" class=\"relative\" layout-fill role=\"main\" ng-controller=\"LayoutCtrl as layout\" ng-cloak>\n" +
-    "    <md-toolbar ng-show=\"!showSearch\">\n" +
-    "        <div class=\"md-toolbar-tools\">\n" +
-    "            <md-button ng-click=\"layout.toggleSidenav('left')\" hide-gt-md aria-label=\"Menu\">\n" +
-    "                <ng-md-icon icon=\"menu\"></ng-md-icon>\n" +
-    "            </md-button>\n" +
-    "            <h3>Improved GitHub Analytics</h3>\n" +
-    "            <span flex></span>\n" +
-    "           \n" +
-    "        </div>\n" +
-    "    </md-toolbar>\n" +
-    "    \n" +
-    "    <md-content layout=\"column\" flex md-scroll-y style=\"background-color:#DCDCDC\">\n" +
-    "        <div ui-view></div>\n" +
-    "    </md-content>\n" +
+    "		You can find all the sources for this project <a ng-href=\"https://github.com/heig-vd-tweb2017/improved-github-analytics-client\">here</a> as everything is open source !\n" +
+    "	</div>\n" +
+    "	<div class=\"text-center\">\n" +
+    "		<p><a ui-sref=\"analytics\" class=\"btn btn-block btn-primary\" role=\"button\">Enough talk, let's do some analytics !</a></p>\n" +
+    "	</div>\n" +
     "</div>\n"
   );
 
 
-  $templateCache.put('app/modules/layouts/main-page/main-page.html',
-    "    <md-toolbar ng-show=\"!showSearch\">\n" +
-    "        <div class=\"md-toolbar-tools\">\n" +
-    "            <md-button ng-click=\"layout.toggleSidenav('left')\" hide-gt-md aria-label=\"Menu\">\n" +
-    "                <ng-md-icon icon=\"menu\"></ng-md-icon>\n" +
-    "            </md-button>\n" +
-    "            <h3>\n" +
-    "                <a href=\"/\">improved-github-analytics</a>\n" +
-    "            </h3>\n" +
-    "            <span flex></span>\n" +
-    "            <md-button aria-label=\"Search\" ng-click=\"showSearch = !showSearch\">\n" +
-    "                <ng-md-icon icon=\"search\"></ng-md-icon>\n" +
-    "            </md-button>\n" +
-    "            <md-menu>\n" +
-    "                <md-button aria-label=\"Open Settings\" ng-click=\"layout.openMenu($mdOpenMenu, $event)\">\n" +
-    "                            <md-icon> more_vert </md-icon>\n" +
-    "                </md-button>\n" +
-    "                <md-menu-content width=\"4\">\n" +
-    "                    <md-menu-item>\n" +
-    "                        <md-button ng-click=\"layout.changeProfile($event)\">\n" +
-    "                            <md-icon>face</md-icon>\n" +
-    "                            Profile\n" +
-    "                        </md-button>\n" +
-    "                    </md-menu-item>\n" +
-    "                    <md-menu-item>\n" +
-    "                        <md-button ng-click=\"layout.changePassword()\">\n" +
-    "                            <md-icon>lock</md-icon>\n" +
-    "                            Password\n" +
-    "                        </md-button>\n" +
-    "                    </md-menu-item>\n" +
-    "                    <md-menu-divider></md-menu-divider>\n" +
-    "                    <md-menu-item>\n" +
-    "                        <md-button ng-click=\"layout.logOut()\">\n" +
-    "                            <md-icon>power_settings_new</md-icon>\n" +
-    "                            Logout\n" +
-    "                        </md-button>\n" +
-    "                    </md-menu-item>\n" +
-    "                </md-menu-content>\n" +
-    "            </md-menu>\n" +
+  $templateCache.put('app/modules/layouts/nav-bar/navbar-tpl.html',
+    "<nav class=\"navbar navbar-inverse\">\n" +
+    "    <div class=\"container\">\n" +
+    "        <div class=\"navbar-header\">\n" +
+    "            <button type=\"button\" class=\"navbar-toggle collapsed\" data-toggle=\"collapse\" data-target=\"#navbar\" aria-expanded=\"false\" aria-controls=\"navbar\">\n" +
+    "                <span class=\"sr-only\">Toggle navigation</span>\n" +
+    "                <span class=\"icon-bar\"></span>\n" +
+    "                <span class=\"icon-bar\"></span>\n" +
+    "                <span class=\"icon-bar\"></span>\n" +
+    "            </button>\n" +
+    "            <a class=\"navbar-brand\" href=\"/#!/\">{{ brand }}</a>\n" +
     "        </div>\n" +
-    "    </md-toolbar>\n" +
-    "    <md-toolbar class=\"md-hue-1\" ng-show=\"showSearch\">\n" +
-    "        <div class=\"md-toolbar-tools\">\n" +
-    "            <md-button ng-click=\"showSearch = !showSearch\" aria-label=\"Back\">\n" +
-    "                <ng-md-icon icon=\"arrow_back\"></ng-md-icon>\n" +
-    "            </md-button>\n" +
-    "            <h3 flex=\"10\">\n" +
-    "                Back\n" +
-    "            </h3>\n" +
-    "            <md-input-container md-theme=\"input\" flex>\n" +
-    "                <label>&nbsp;</label>\n" +
-    "                <input ng-model=\"search.who\" placeholder=\"Search ...\">\n" +
-    "            </md-input-container>\n" +
-    "\n" +
-    "        </div>\n" +
-    "    </md-toolbar>\n" +
-    "    <md-content class=\"md-blue-grey-theme\" flex md-scroll-y>\n" +
-    "        <ui-view layout=\"column\" layout-fill layout-padding>\n" +
-    "\n" +
-    "\n" +
-    "        </ui-view>\n" +
-    "    </md-content>\n"
+    "        <div id=\"navbar\" class=\"collapse navbar-collapse\">\n" +
+    "            <ul class=\"nav navbar-nav\">\n" +
+    "                <li ng-repeat=\"item in menus\" ng-class=\"{active:isActive('#/' + item.link)}\">\n" +
+    "                    <a ui-sref=\"{{ item.link }}\">{{ item.name }}</a>\n" +
+    "                </li>\n" +
+    "            </ul>\n" +
+    "        </div><!--/.nav-collapse -->\n" +
+    "    </div>\n" +
+    "</nav>\n"
   );
 
 
-  $templateCache.put('app/modules/layouts/side-nav/sidenav.html',
-    "        <md-toolbar class=\"md-tall md-hue-2\">\n" +
-    "            <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\n" +
-    "                <div layout=\"row\">\n" +
-    "                    <div flex=\"20\">\n" +
-    "                        <img style=\"width: 36px; height: 36px; border-radius: 50%\"\n" +
-    "                             actual-src=\"data:image/jpeg;base64,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\"\n" +
-    "                             showloader=\"\" loader-class=\"preload\" loader-src=\"app/assets/images/loader.gif\"\n" +
-    "                             src=\"data:image/jpeg;base64,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\">\n" +
-    "                    </div>\n" +
-    "                    <div flex=\"80\" style=\"margin-top: 10px;font-size: 1em;\">\n" +
-    "                        <div>Fernando Monteiro</div>\n" +
-    "                    </div>\n" +
-    "                </div>\n" +
-    "            </div>\n" +
-    "        </md-toolbar>\n" +
-    "        <md-list>\n" +
-    "            <md-list-item ng-repeat=\"item in vm.menu\" ng-click=\"vm.navigateTo(item.link)\" >\n" +
-    "                <div class=\"inset\" ng-show=\"item.icon\">\n" +
-    "                    <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n" +
-    "                </div>\n" +
-    "                <p> {{ item.name }}</p>\n" +
-    "            </md-list-item>\n" +
-    "            <md-divider></md-divider>\n" +
-    "            <md-subheader>Admin</md-subheader>\n" +
-    "            <md-list-item ng-repeat=\"item in vm.admin\" ng-click=\"vm.showSettingsBottom($event)\" >\n" +
-    "                <div class=\"inset\">\n" +
-    "                    <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n" +
-    "                </div>\n" +
-    "                <p> {{ item.title }}</p>\n" +
-    "            </md-list-item>\n" +
-    "        </md-list>\n"
+  $templateCache.put('app/modules/layouts/nav-bar/navbar.html',
+    "<div ng-controller=\"NavBarCtrl as vm\">\n" +
+    "    <nav-bar menus=\"vm.menu\" brand=\"vm.title\"></nav-bar>\n" +
+    "</div>\n"
   );
 
 }]);

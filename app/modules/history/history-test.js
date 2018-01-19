@@ -1,31 +1,31 @@
 (function () {
-	'use strict';
+    'use strict';
 
-	/**
-	 * @ngdoc function
-	 * @name app.test:historyTest
-	 * @description
-	 * # historyTest
-	 * Test of the app
-	 */
+    /**
+     * @ngdoc function
+     * @name app.test:historyTest
+     * @description
+     * # historyTest
+     * Test of the app
+     */
 
-	describe('history test', function () {
-		var controller = null, $scope = null;
+    describe('history test', function () {
+        var controller = null, $scope = null;
 
-		beforeEach(function () {
-			module('improved-github-analytics');
-		});
+        beforeEach(function () {
+            module('improved-github-analytics');
+        });
 
-		beforeEach(inject(function ($controller, $rootScope) {
-			$scope = $rootScope.$new();
-			controller = $controller('HistoryCtrl', {
-				$scope: $scope
-			});
-		}));
+        beforeEach(inject(function ($controller, $rootScope) {
+            $scope = $rootScope.$new();
+            controller = $controller('HistoryCtrl', {
+                $scope: $scope
+            });
+        }));
 
-		it('Should controller must be defined', function () {
-			expect(controller).toBeDefined();
-		});
+        it('Should controller must be defined', function () {
+            expect(controller).toBeDefined();
+        });
 
-	});
+    });
 })();

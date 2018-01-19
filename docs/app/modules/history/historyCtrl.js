@@ -1,35 +1,32 @@
 (function() {
-	'use strict';
-  /**
-	* @ngdoc function
-	* @name app.controller:historyCtrl
-	* @description
-	* # historyCtrl
-	* Controller of the app
-	*/
+    'use strict';
 
-  	angular
-    .module('improved-github-analytics')
-    .controller('historyCtrl', History);
+    /**
+    * @ngdoc function
+    * @name app.controller:historyCtrl
+    * @description
+    * # historyCtrl
+    * Controller of the app
+    */
 
-  History.$inject = ['socketio', '$scope', '$window', 'historyService'];
+    angular
+        .module('history')
+        .controller('HistoryCtrl', History);
 
-  /*
-		* recommend
-		* Using function declarations
-		* and bindable members up top.
-		*/
+        History.$inject = ['$scope', 'ApiService'];
 
-  function History(socketio, $scope, $window, historyService) {
-    /* jshint validthis: true */
-	const vm = this;
-	
-	socketio.on('number-of-issues-by-authors-old-results', (data) => {
-		historyService.setData(data.data);
-	});
+        /*
+        * recommend
+        * Using function declarations
+        * and bindable members up top.
+        */
 
-	vm.history = historyService.getData();
-	vm.repo = historyService.getRepo();
+        function History($scope, ApiService) {
+            /*jshint validthis: true */
+            var vm = this;
 
-  }
-}());
+            $scope.apiService = ApiService;
+
+        }
+
+})();
