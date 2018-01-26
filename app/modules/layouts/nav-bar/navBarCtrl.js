@@ -12,14 +12,14 @@
         .module('improved-github-analytics')
         .controller('NavBarCtrl', NavBar);
 
-    NavBar.$inject = ['homeService', 'MenuService'];
+    NavBar.$inject = ['HomeService', 'MenuService'];
 
     /*
     * recommend
     * Using function declarations
     * and bindable members up top.
     */
-    function NavBar(homeService, MenuService) {
+    function NavBar(HomeService, MenuService) {
         /*jshint validthis: true */
         var vm = this;
         vm.title = "Home";

@@ -13,14 +13,14 @@
         .module('improved-github-analytics')
         .controller('HomeCtrl', Home);
 
-    Home.$inject = ['homeService'];
+    Home.$inject = ['HomeService'];
 
     /*
     * recommend
     * Using function declarations
     * and bindable members up top.
     */
-    function Home(homeService) {
+    function Home(HomeService) {
         /*jshint validthis: true */
         var vm = this;
         vm.title = "Improved GitHub Anaytics";

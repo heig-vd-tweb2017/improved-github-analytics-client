@@ -9,7 +9,6 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <form ng-controller="ApiCtrl" role="form">
-                                {{ apiService.numberOfIssuesByAuthorsResults }}
                                 <div class="form-group" ng-class="{'has-error': filters.urlError}">
                                     <label class="control-label" for="github-repository">GitHub repository to analyze</label>
                                     <input ng-model="filters.gitHubRepository" id="github-repository" class="form-control" placeholder="Enter a GitHub repository URL i.e. https://github.com/{owner}/{repo}" type="url"/>

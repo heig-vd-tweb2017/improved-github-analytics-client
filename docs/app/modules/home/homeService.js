@@ -3,9 +3,9 @@
 
     /**
     * @ngdoc function
-    * @name app.service:homeService
+    * @name app.service:HomeService
     * @description
-    * # homeService
+    * # HomeService
     * Service of the app
     */
     angular.module('improved-github-analytics')
