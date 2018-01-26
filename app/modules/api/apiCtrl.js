@@ -91,7 +91,6 @@
 			};
 
             mySocket.on('number-of-issues-by-authors-results', function (results) {
-				console.log(results);
 				if (results.error != null) {
 					$scope.filters.urlError = true;
 				} else {
