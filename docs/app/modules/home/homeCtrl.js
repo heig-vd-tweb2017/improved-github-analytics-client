@@ -24,8 +24,6 @@
         /*jshint validthis: true */
         var vm = this;
         vm.title = "Improved GitHub Anaytics";
-        vm.version = "1.0.0";
-        vm.listFeatures = homeService.getFeaturesList();
 
     }
 

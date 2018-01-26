@@ -48,14 +48,6 @@
                 },
             };
 
-            const barChartsColors = [
-                {
-                    backgroundColor: 'rgba(192, 192, 192,0.3)',
-                    borderColor: 'rgba(192, 192, 192, 0.5)',
-                    hoverBackgroundColor: 'rgba(192, 192, 192, 0.9)',
-                }
-            ];
-
             const lineChartsOptions = {
                 scales: {
                     yAxes: [
@@ -73,14 +65,6 @@
                     ],
                 }
             };
-
-            const lineChartsColors = [
-                {
-                    backgroundColor: 'rgba(192, 192, 192,0.3)',
-                    borderColor: 'rgba(192, 192, 192, 0.5)',
-                    hoverBackgroundColor: 'rgba(192, 192, 192, 0.9)',
-                },
-            ];
 
             /*jshint validthis: true */
             var vm = this;
@@ -193,7 +177,7 @@
                 ],
                 datasetOverride: [{ yAxisID: 'y-axis-1' }],
                 options: lineChartsOptions,
-                colors: lineChartsColors,
+                colors: [],
             };
 
             $scope.closedIssuesChart = {
@@ -204,7 +188,7 @@
                 ],
                 datasetOverride: [{ yAxisID: 'y-axis-1' }],
                 options: lineChartsOptions,
-                colors: lineChartsColors,
+                colors: [],
             };
 
             $scope.remainingOpenedIssuesChart = {
@@ -215,7 +199,7 @@
                 ],
                 datasetOverride: [{ yAxisID: 'y-axis-1' }],
                 options: lineChartsOptions,
-                colors: lineChartsColors,
+                colors: [],
             };
 
             $scope.differenceOpenedClosedIssuesChart = {
@@ -226,7 +210,7 @@
                 ],
                 datasetOverride: [{ yAxisID: 'y-axis-1' }],
                 options: lineChartsOptions,
-                colors: lineChartsColors,
+                colors: [],
             };
 
             $scope.bestContribOpenedIssuesChart = {
@@ -237,7 +221,7 @@
                 ],
                 datasetOverride: [],
                 options: barChartsOptions,
-                colors: barChartsColors,
+                colors: [],
             };
 
             $scope.bestContribClosedIssuesChart = {
@@ -248,7 +232,7 @@
                 ],
                 datasetOverride: [],
                 options: barChartsOptions,
-                colors: barChartsColors,
+                colors: [],
             };
             
         }

@@ -12,7 +12,7 @@
         .module('improved-github-analytics')
         .controller('NavBarCtrl', NavBar);
 
-    NavBar.$inject = ['homeService', 'MenuService'];
+    NavBar.$inject = ['HomeService', 'MenuService'];
 
     /*
     * recommend
